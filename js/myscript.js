@@ -55,6 +55,12 @@ function setupCanvas() {
     /*Add background image to canvas*/
     backgroundImg.addImg(gameImage.loadedImg["background"]);
     
+    /*Initate grid*/
+    //backgroundImg.canvasGrid(backgroundImg.canvas.width, backgroundImg.canvas.height);
+    backgroundImg.canvasGrid(25);   //Square size
+    backgroundImg.gridSqHeight = 25;
+    backgroundImg.gridSqWidth = 25;
+    
     /*Draw the character on the screen*/
     setupCharacter(gameCanvas);
     //addEnemy(gameCanvas);
@@ -84,10 +90,32 @@ function setupCharacter(gameCanvas) {
     /*Size of character*/
     var height = 25;
     var width = 25;
+    var cord = [], x, y, gridPos;
     
     /*Add the character to the canvas*/
     character = new physics(gameCanvas, width, height, 275, 210);
     character.addImg(gameImage.loadedImg["character"]);
+    
+    pathC[0] = {
+      x: 275,
+      y: 210,
+      rbg: "blue" 
+    };
+    
+    pathCCount++;
+    
+    //console.log(pathC[0].x);
+    /*Place the character to array position in the array
+    cord = backgroundImg.aryNumToXYCord(0);
+    
+    x = backgroundImg.getGridXPos(cord[0]);
+    y = backgroundImg.getGridYPos(cord[1]);
+    console.log(x + " "  + y);
+    //backgroundImg.xyCordToAryNum();
+    backgroundImg.grid[100] = "0";
+    
+    character = new physics(gameCanvas, width, height, x, y);
+    character.addImg(gameImage.loadedImg["character"]);*/
 }
 
 function addEnemy(gameCanvas) {

@@ -55,7 +55,11 @@ function imageLib(canvasName, width, height, xPos, yPos) {
     this.fillStyle = "#0000ff"; 
     
     /*Canvas grid*/
-    this.gird = [];
+    this.grid = [];
+    this.gridRow = 0;
+    this.gridCol = 0;
+    this.gridSqWidth = 0;
+    this.gridSqHeight = 0;
 };
 
 imageLib.prototype.addImg = function(image) {
@@ -64,6 +68,9 @@ imageLib.prototype.addImg = function(image) {
     
     /*Determine if the image needs to be repeated*/
     this.backgroundRepeat();
+    
+    this.oldPosX = this.xPos;
+    this.oldPosY = this.yPos;
 };
 
 /*Clear entire canvas*/
@@ -90,10 +97,11 @@ imageLib.prototype.redraw = function(newPosX, newPosY) {
     this.canvasCtx.drawImage(this.image, newPosX, newPosY,  this.width, this.height);
     
     /*Update related image information*/
+    this.oldPosX = this.xPos;
+    this.oldPosY = this.yPos;
     this.xPos = newPosX;
-    this.yPos = newPosY;
-    this.oldPosX = newPosX;
-    this.oldPosY = newPosY;
+    this.yPos = newPosY;   
+    //console.log(this.oldPosX);
     
     /*Determine if the image needs to be repeated*/
     this.backgroundRepeat();
@@ -142,6 +150,17 @@ imageLib.prototype.drawLine = function() {
     this.canvasCtx.stroke(); 
 };
 
+imageLib.prototype.drawLine = function(startX, startY, endX, endY) {  
+    this.canvasCtx.beginPath();
+    this.canvasCtx.lineWidth= this.lineWidth;
+    this.canvasCtx.strokeStyle= this.strokeStyle; //Setting path colour
+    
+    /*Draw out the path*/
+    this.canvasCtx.moveTo(startX,startY);
+    this.canvasCtx.lineTo(endX,endY);
+    this.canvasCtx.stroke(); 
+};
+
 imageLib.prototype.drawProjectile = function() {
     var radius = this.radius;
     
@@ -179,13 +198,103 @@ imageLib.prototype.canvasGrid = function(col, row) {
     for (pos = 0; pos < numSq; pos++) {
         this.grid[pos] = 0;
     }
+    
+    this.gridRow = row;
+    this.gridCol = col;
 };
 
+
+/*Create the canvas grid*/
 imageLib.prototype.canvasGrid = function(squSize) {
     var pos = 0;
-    var numSq = squSize + 1;
+    var numSq;
+    
+    //var numSq = squSize + 1;
+    var colNumSq = this.canvas.width / squSize;
+    var rowNumSq = this.canvas.height / squSize;
+     
+    numSq = colNumSq * rowNumSq;
      
     for (pos = 0; pos < numSq; pos++) {
         this.grid[pos] = 0;
     }
+    console.log(colNumSq + " " + rowNumSq + " " + numSq);
+    
+    this.gridRow = rowNumSq;
+    this.gridCol = colNumSq;
+};
+
+/* Convert 2D array coordinate to a single 1D array number,
+ * Starting at 1,1.
+ * 
+ * x = column number
+ * y = row number
+ */
+imageLib.prototype.xyCordToAryNum = function(x, y) {
+    var num;
+    num = (y - 1) * this.gridCol + x;
+    return num;
+};
+
+/* Convert 1D array to a two dimensional cordinate.
+ * Starting at 1,1
+ */
+imageLib.prototype.aryNumToXYCord = function(num) {
+    var temp = 0;   //temporary variable storage
+    var cord = [];  //position 0 = x cordinate, 1 = y coordinate
+    
+    /*Determine the column number*/
+    cord[0] = num % this.gridCol;
+    
+    /*Determine the row number*/
+    cord[1] = Math.floor(num / this.gridCol);
+    
+    /*Modify the column number if it's the last column in the row*/
+    if (cord[0] == 0 && num != 0) {
+        cord[0] = this.gridCol;
+        cord[1] -= 1;
+    }
+    
+    console.log(num + " " + cord[0] + " " + cord[1]);
+    
+    return cord;
+};
+
+
+imageLib.prototype.aryPixelPos = function(num) {
+    var cord = []; //position 0 = x cordinate, 1 = y coordinate
+    //var x, y;
+    //var pixel = [];
+    
+    cord = this.aryNumToXYCord(num);
+    cord[0] = this.getGridXPos(cord[0]);
+    cord[1] = this.getGridYPos(cord[1]);
+    
+    return cord;
+};
+
+
+/*Determine the y-pixel coordinate of the block*/
+imageLib.prototype.getGridYPos = function(col) {
+    var yPos;
+    
+    /*Getting the y coordinate pixel location of the block*/
+    yPos = col *  this.gridSqHeight;
+    
+    return yPos;
+};
+
+/*Determine the x-pixel coordinate of the block*/
+imageLib.prototype.getGridXPos = function(row) {
+    var xPos;
+    
+    /*Getting the y coordinate pixel location of the block*/
+    xPos = row *  this.gridSqWidth;
+    
+    return xPos;
+};
+
+/*Add information to grid*/
+imageLib.prototype.addToGrid = function(pos, data){
+    this.grid[pos] = data;
 };

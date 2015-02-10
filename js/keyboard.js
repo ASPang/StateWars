@@ -29,11 +29,11 @@ function keyDownEvent(e) {
     //e.preventDefault();   //TESTING!!!! - DISABLED DURING DEVELOPMENT
     
     /*Determine if the game over flag as been set*/
-    if (endGameFlag == true || lastKey == e.keycode) { 
+    if (endGameFlag == true || lastKey == e.keyCode) { 
       return false; //TESTING!!!! - DISABLED DURING DEVELOPMENT
     }
     
-    console.log("last key " + lastKey + " keycode " + e.keycode);
+    //console.log("last key " + lastKey + " keycode " + (e.keyCode));
     
     /*Determine which key is pressed*/
     switch (e.keyCode) {
@@ -95,6 +95,7 @@ function upArrowKeyEvent() {
         /*Saving character direction*/
         character.dx = 0;
         character.dy = -dir;
+        updateCPath();
     }
 
     /*Update the game window*/
@@ -109,6 +110,7 @@ function downArrowKeyEvent() {
     /*Saving character direction*/
     character.dx = 0;
     character.dy = dir;
+    updateCPath();
     
     /*Update the game window*/
     updateGame();
@@ -122,6 +124,7 @@ function rightArrowKeyEvent() {
     /*Saving character direction*/
     character.dx = dir;
     character.dy = 0;
+    updateCPath();
     
     /*Update the game window*/
     updateGame();
@@ -136,6 +139,7 @@ function leftArrowKeyEvent() {
     /*Saving character direction*/
     character.dx = -dir;
     character.dy = 0;
+    updateCPath();
     
     /*Update the game window*/
     updateGame();
@@ -151,4 +155,15 @@ function spaceBarKeyEvent() {
     
     projectile.push(newProj);
     updateGame();
+}
+
+function updateCPath() {
+    
+    pathC[pathCCount] = {
+      x: character.oldPosX,
+      y: character.oldPosY,
+      rbg: "blue" 
+    };
+    pathCCount++;
+    console.log(character.oldPosX + " " + character.oldPosY);
 }

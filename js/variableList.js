@@ -33,6 +33,11 @@ var powerUpEnd = 7;
 
 /*Obstacles*/
 var path = [];
+var pathC = [];
+var pathE = [];
+
+var pathCCount = 0;
+var pathECount = 0;
 
 /*Projectile Information*/
 var projectile = [];
@@ -66,6 +71,6 @@ var startPos = 46;  //Starting Position
 var curPos; //Current position on the board
 var oldPos;
 
-var lastKey = 39;
+var lastKey = 0;
 var tempBlkNum; //Might not need
 var tempBlkPos;

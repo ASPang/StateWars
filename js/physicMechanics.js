@@ -38,6 +38,9 @@ function physics(canvasName, width, height, xPos, yPos) {
     this.ceiling = null;
     this.rightWall = null;
     this.leftWall = null;
+    
+    /*State variable*/
+    this.state = "";
 }
 
 physics.prototype.jump = function() {

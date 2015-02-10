@@ -41,7 +41,8 @@ function updateGame() {
     
     /*Draw the background*/
     backgroundImg.redraw(backgroundImg.xPos, backgroundImg.yPos);
-    redrawPaths();
+    //redrawPaths();
+    redrawCPaths();
     
     /*Draw gameplay information*/
     backgroundImg.canvasCtx.fillStyle = "Black";
@@ -60,6 +61,7 @@ function updateGame() {
     /*Check if the image intersects with anything on the canvas*/
     //checkObstacles();
     //characterHit();
+    //updatePath();
     
     /*Determine if the game over flag as been set*/
     if (endGameFlag == true) { 
@@ -162,6 +164,11 @@ function candyTime() {
     return powerRemaining;
 }
 
+/*Fill area*/
+function fillArea() {
+    backgroundImg.grid[1] = "blue";
+}
+
 /*Convert Second to millisecond*/
 function convertSecToMilSec(sec) {
     var milSec = 1000;
@@ -185,6 +192,35 @@ function redrawPaths() {
     }
 }
 
+function redrawCPaths() {
+    var i = 0, numPaths;
+    var pX1, pY1, pX2, pY2; //points
+    
+    numPaths = pathCCount; //pathC.length;
+    console.log(pathCCount);
+    /*Draw all previous paths*/
+    for (i = 0; i < numPaths - 1; i++) {
+        pX1 = pathC[i].x;
+        pY1 = pathC[i].y;
+        
+        pX2 = pathC[i+1].x;
+        pY2 = pathC[i+1].y;
+        
+        backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+        //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
+        //console.log("HERE");
+    }
+    
+    /*Draw the current path getting built*/
+    pX1 = pathC[numPaths - 1].x;
+    pY1 = pathC[numPaths - 1].y;
+
+    pX2 = character.xPos;
+    pY2 = character.yPos;
+    //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
+    backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+}
+
 function clearBoard() {
     var i = 0;
     
@@ -199,3 +235,7 @@ function clearBoard() {
     }    
 }
 
+function updatePath() {
+    backgroundImg.grid[0] = "";
+    backgroundImg.addGrid();
+}
