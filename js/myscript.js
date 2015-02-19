@@ -86,23 +86,24 @@ function setupObstacles() {
     path[1].drawLine();
 }
 
+/*Set up the character*/
 function setupCharacter(gameCanvas) {
     /*Size of character*/
-    var height = 25;
-    var width = 25;
+    var height = 15;
+    var width = 15;
     var cord = [], x, y, gridPos;
     
     /*Add the character to the canvas*/
     character = new physics(gameCanvas, width, height, 275, 210);
     character.addImg(gameImage.loadedImg["character"]);
     
-    pathC[0] = {
+    /*pathC[0] = {
       x: 275,
       y: 210,
       rbg: "blue" 
     };
     
-    pathCCount++;
+    pathCCount++;*/
     
     //console.log(pathC[0].x);
     /*Place the character to array position in the array

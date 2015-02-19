@@ -52,8 +52,14 @@ function updateGame() {
     /*Draw the character*/
     character.xPos += character.dx;
     character.yPos += character.dy;
-    character.stopWallCollision();
+    
+    if (character.canvasWallCollision() != "null") {   //Returns the value which the character collides with the wall
+      character.stopWallCollision();
+      endGameFlag = true;
+    }
     character.redraw(character.xPos, character.yPos);
+    
+    
     
     /*Update Emeny position*/
     //moveEnemies();
@@ -79,6 +85,8 @@ function updateGame() {
         backgroundImg.canvasCtx.fillText("GAME OVER", 125, 160);
         backgroundImg.canvasCtx.font = "bold 30px Arial";
         backgroundImg.canvasCtx.fillText("Final Score: " + points, 220, 220);
+        
+        clearInterval(gameTimer);   //TESTING!!!!!!!!!!!!!! - SHOULDN'T BE HERE
     }
 }
 
@@ -183,6 +191,7 @@ function convertMilSecToSec(milSec) {
     return milSec / sec;
 }
 
+/*Draw object paths*/
 function redrawPaths() {
     var i = 0, numPaths;
     
@@ -192,35 +201,39 @@ function redrawPaths() {
     }
 }
 
+/*Draw Character path*/
 function redrawCPaths() {
     var i = 0, numPaths;
     var pX1, pY1, pX2, pY2; //points
     
     numPaths = pathCCount; //pathC.length;
-    console.log(pathCCount);
-    /*Draw all previous paths*/
-    for (i = 0; i < numPaths - 1; i++) {
-        pX1 = pathC[i].x;
-        pY1 = pathC[i].y;
-        
-        pX2 = pathC[i+1].x;
-        pY2 = pathC[i+1].y;
-        
-        backgroundImg.drawLine(pX1, pY1, pX2, pY2);
-        //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
-        //console.log("HERE");
-    }
-    
-    /*Draw the current path getting built*/
-    pX1 = pathC[numPaths - 1].x;
-    pY1 = pathC[numPaths - 1].y;
+    if (numPaths > 0) {
+       console.log(pathCCount);   //TESTING!!!!!!!!!!
+       /*Draw all previous paths*/
+       for (i = 0; i < numPaths - 1; i++) {
+           pX1 = pathC[i].x;
+           pY1 = pathC[i].y;
+           
+           pX2 = pathC[i+1].x;
+           pY2 = pathC[i+1].y;
+           
+           backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+           //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
+           //console.log("HERE");
+       }
+       
+       /*Draw the current path getting built*/
+       pX1 = pathC[numPaths - 1].x;
+       pY1 = pathC[numPaths - 1].y;
 
-    pX2 = character.xPos;
-    pY2 = character.yPos;
-    //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
-    backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+       pX2 = centPathX(character.xPos);
+       pY2 = centPathY(character.yPos);
+       //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
+       backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+    }
 }
 
+/*Clear the canvas of items*/
 function clearBoard() {
     var i = 0;
     

@@ -18,7 +18,7 @@ var cBlock;     //Block canvas
 var ctxBlock;   //Block context
 
 var gameImage;
-var imgSrc = ["background", "character", "enemy"];   /*Name of images*/
+var imgSrc = ["background", "character", "enemy", "Fire", "Water", "Lightning"];   /*Name of images*/
 var backgroundImg;  //background image
 var character;  //character image
 var candy;  //candy image
@@ -41,18 +41,6 @@ var pathECount = 0;
 
 /*Projectile Information*/
 var projectile = [];
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

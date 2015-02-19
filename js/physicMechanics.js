@@ -43,6 +43,7 @@ function physics(canvasName, width, height, xPos, yPos) {
     this.state = "";
 }
 
+/*Apply jump to the object*/
 physics.prototype.jump = function() {
     var i = 0;  //Loop counter
     
@@ -56,12 +57,14 @@ physics.prototype.jump = function() {
     }
 };
 
+/*Apply gravity on the object*/
 physics.prototype.gravity = function() {    
     if (this.yPos < (this.canvas.height - this.height) && (this.yPos <= this.ground)) {
         this.redraw(this.xPos, this.yPos + this.jumpSpeed);
     }
 };
 
+/*Reflect the object's direction if it hits a path*/
 physics.prototype.obstaclebounce = function(obstacle) {
     var x = 0, y = 0;
     
@@ -85,6 +88,7 @@ physics.prototype.obstaclebounce = function(obstacle) {
     return false;
 };
 
+/*Reflect the movement of the object if it hits the canvas wall*/
 physics.prototype.canvasWallBounce = function() {
     if (this.leftWall != null) {
         if (this.xPos < this.leftWall) {
@@ -108,6 +112,8 @@ physics.prototype.canvasWallBounce = function() {
     }
 };
     
+    
+/*Returns the value of where the user has collided with the canvas wall*/    
 physics.prototype.canvasWallCollision = function() {
     var leftWall = 0;
     var rightWall = this.canvas.width;
@@ -130,7 +136,7 @@ physics.prototype.canvasWallCollision = function() {
     return "null";
 };
 
-
+/*Prevents the object from going out of the canvas*/
 physics.prototype.stopWallCollision = function() {
     var leftWall = 0;
     var rightWall = this.canvas.width;
