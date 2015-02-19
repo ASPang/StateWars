@@ -19,9 +19,9 @@ var ctxBlock;   //Block context
 
 var gameImage;
 var imgSrc = ["background", "character", "enemy", "Fire", "Water", "Lightning"];   /*Name of images*/
-var backgroundImg;  //background image
-var character;  //character image
-var candy;  //candy image
+var backgroundImg;  //background image object
+var character;  //character image object
+var candy;  //candy image object
 var aliens = [];
 var enemy = [];
 var alienVisibility = 1.0;

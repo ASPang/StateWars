@@ -15,6 +15,7 @@
  
 imageLib.prototype.constructor = imageLib;
 
+/*Constructor for the imbLib library*/
 function imageLib(canvasName, width, height, xPos, yPos) {    
     this.canvasName = canvasName;
     this.canvas = document.getElementById(this.canvasName);
@@ -62,6 +63,7 @@ function imageLib(canvasName, width, height, xPos, yPos) {
     this.gridSqHeight = 0;
 };
 
+/*Add image to the canvas*/
 imageLib.prototype.addImg = function(image) {
     this.image = image; 
     this.canvasCtx.drawImage(image, this.xPos, this.yPos, this.width, this.height);
@@ -88,10 +90,7 @@ imageLib.prototype.canvasHeight = function() {
     return this.canvas.height;
 };
 
-imageLib.prototype.clearCanvas = function() {
-    this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-};
-
+/*Redraw the object/character based on its new coordinates*/
 imageLib.prototype.redraw = function(newPosX, newPosY) {
     /*Redraw new image*/
     this.canvasCtx.drawImage(this.image, newPosX, newPosY,  this.width, this.height);
@@ -107,6 +106,7 @@ imageLib.prototype.redraw = function(newPosX, newPosY) {
     this.backgroundRepeat();
 };
 
+/*Repeat the background displayed on the canvas*/
 imageLib.prototype.backgroundRepeat = function() {
     //console.log(this.canvas.width);
     var newPosX = this.xPos + this.width;
@@ -150,6 +150,7 @@ imageLib.prototype.drawLine = function() {
     this.canvasCtx.stroke(); 
 };
 
+/*Draw a line based on its start and ending point*/
 imageLib.prototype.drawLine = function(startX, startY, endX, endY) {  
     this.canvasCtx.beginPath();
     this.canvasCtx.lineWidth= this.lineWidth;
@@ -161,6 +162,7 @@ imageLib.prototype.drawLine = function(startX, startY, endX, endY) {
     this.canvasCtx.stroke(); 
 };
 
+/*Draw the a circle projectile*/
 imageLib.prototype.drawProjectile = function() {
     var radius = this.radius;
     
@@ -177,12 +179,14 @@ imageLib.prototype.drawProjectile = function() {
     this.height = radius;
 };
 
+/*Determine if the image intersects with another image on the canvas*/
 imageLib.prototype.intersect =  function(image) { 
     var x1 = image.xPos;
     var x2 = image.xPos + image.width;
     var y1 = image.yPos;
     var y2 = image.yPos + image.height;
 
+    /*Check to see if the image intersects with another image*/
     if ((x2 >= this.xPos) && (x1 <= (this.xPos + this.width)) && (y2 >= this.yPos) && (y1 <= (this.yPos + this.height))){
         return true;
     }
@@ -191,6 +195,7 @@ imageLib.prototype.intersect =  function(image) {
 };
 
 
+/*Create a canvas grid based on the number of columns or rows*/
 imageLib.prototype.canvasGrid = function(col, row) {
     var pos = 0;
     var numSq = col * row + 1;
@@ -202,7 +207,6 @@ imageLib.prototype.canvasGrid = function(col, row) {
     this.gridRow = row;
     this.gridCol = col;
 };
-
 
 /*Create the canvas grid*/
 imageLib.prototype.canvasGrid = function(squSize) {

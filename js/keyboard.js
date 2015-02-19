@@ -79,8 +79,8 @@ function keyDownEvent(e) {
     }
 }
 
-var move = 10;
-var dir = 4;
+var move = 1;
+var dir = 1;
 
 function upArrowKeyEvent() {   
     /*Enable character to jump*/
@@ -158,75 +158,35 @@ function spaceBarKeyEvent() {
 }
 
 /*Save the new turning point of the path*/
-function updateCPath() {
-    var oriX = character.oldPosX;
-    var oriY = character.oldPosY;
-    var newX, newY;
-   
-    newX = centPathX(oriX);
-    newY = centPathY(oriY);
-    
-    /*pathC[pathCCount] = {
-      x: newX,
-      y: newY,
-      rbg: "blue"
-    };*/
-    
-    if (lastKey == 38 || lastKey == 40) { //up
+function updateCPath() {    
+    if (lastKey == 38 || lastKey == 40) { //up or down key - for horizontal movement
        pathC[pathCCount] = {
-            x: character.oldPosX + Math.floor(character.width/2), //character.oldPosX + Math.floor(character.width/2),
-            y: character.oldPosY  + Math.floor(character.width/2), //character.oldPosY,// + Math.floor(character.height/2),
+            x: character.oldPosX + Math.floor(character.width/2), 
+            y: character.oldPosY  + Math.floor(character.width/2),
+            oX: character.oldPosX, 
+            oY: character.oldPosY,
             rbg: "blue"
        };
     }
-    else if (lastKey == 40) { //down
+    else if (lastKey == 37 || lastKey == 39) {  //left or right key - vertical movement
       pathC[pathCCount] = {
-            x: character.oldPosX + Math.floor(character.width/2), //character.oldPosX + Math.floor(character.width/2),
-            y: character.oldPosY + Math.floor(character.width/2), //character.oldPosY,// + Math.floor(character.height/2),
+            x: character.oldPosX + Math.floor(character.height/2), 
+            y: character.oldPosY + Math.floor(character.height/2),
+            oX: character.oldPosX, 
+            oY: character.oldPosY,
             rbg: "blue"
        };
     }
-    else if (lastKey == 37 || lastKey == 39) {
-      pathC[pathCCount] = {
-            x: character.oldPosX + Math.floor(character.height/2), //character.oldPosX,
-            y: character.oldPosY + Math.floor(character.height/2), //character.oldPosY + Math.floor(character.width/2),
-            rbg: "blue"
-       };
-    }
-    
-    /*
-    if (lastKey == 38 || lastKey == 40) {
-       pathC[pathCCount] = {
-            x: character.oldPosX - Math.floor(character.width/2), //character.oldPosX + Math.floor(character.width/2),
-            y: character.oldPosY, //character.oldPosY,// + Math.floor(character.height/2),
-            rbg: "blue"
-       };
-    }
-    else if (lastKey == 37 || lastKey == 39) {
-      pathC[pathCCount] = {
-            x: character.oldPosX, //character.oldPosX,
-            y: character.oldPosY - Math.floor(character.height/2), //character.oldPosY + Math.floor(character.width/2),
-            rbg: "blue"
-       };
-    }
-    */
       
     pathCCount++;
-    console.log(character.oldPosX + " " + character.oldPosY);
+    //console.log(character.oldPosX + " " + character.oldPosY);   //TESTING!!!!!!!!!! - DISPLAY ORIGINAL OLDPOSITIONS OF THE CHARACTER
 }
 
 /*Return updated x value so the path is centered to the character*/
-function centPathX(x) {
-    
+function centPathX(x) {    
    /*Determine if the character is moving vertically*/
    if (lastKey == 38 || lastKey == 40) {
-      //console.log("Ver");
       x = x + Math.floor(character.width/2);
-      /*pathC[pathCCount] = {
-         x: character.oldPosX + Math.floor(character.width/2),
-         y: character.oldPosY,
-         rbg: "blue"
-      };*/
    }
    
    return x;
@@ -236,14 +196,7 @@ function centPathX(x) {
 function centPathY(y) {
    /*Determine if the character is moving horizontally*/
    if (lastKey == 37 || lastKey == 39) {
-      //console.log("Hor");
       y = y + Math.floor(character.height/2);
-      /*
-      pathC[pathCCount] = {
-         x: character.oldPosX,
-         y: character.oldPosY + Math.floor(character.height/2),
-         rbg: "blue"
-      };*/
    }  
    
    return y;

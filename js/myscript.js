@@ -105,6 +105,10 @@ function setupCharacter(gameCanvas) {
     
     pathCCount++;*/
     
+    /*Set up the move number based on the character's size*/
+    //move = character.height/2;
+    move = 1;
+    
     //console.log(pathC[0].x);
     /*Place the character to array position in the array
     cord = backgroundImg.aryNumToXYCord(0);

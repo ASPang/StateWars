@@ -64,6 +64,10 @@ physics.prototype.gravity = function() {
     }
 };
 
+/*Determine if the object intersects a line*/
+physics.prototype.lineIntersect = function(obstacle) {
+}
+
 /*Reflect the object's direction if it hits a path*/
 physics.prototype.obstaclebounce = function(obstacle) {
     var x = 0, y = 0;

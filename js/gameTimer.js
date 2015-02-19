@@ -19,11 +19,12 @@ var numGamePlay = 0;
 var milSec = 1000;
 
 
+/*Start the game when the start button is clicked*/
 function startTimer() { 
    clearInterval(gameTimer);   
    startClock = new Date().getTime();
    
-   var oneSec = 30;
+   var oneSec = 1;
    setInterval(function(){updateGame();}, oneSec);     
 
 //    /*Initiate game*/
@@ -33,6 +34,7 @@ function startTimer() {
 }
 
 
+/*Update the game every few milseconds*/
 function updateGame() {
     var i;  //Loop counter
     
@@ -68,6 +70,7 @@ function updateGame() {
     //checkObstacles();
     //characterHit();
     //updatePath();
+    characterHitLine();
     
     /*Determine if the game over flag as been set*/
     if (endGameFlag == true) { 
@@ -86,10 +89,15 @@ function updateGame() {
         backgroundImg.canvasCtx.font = "bold 30px Arial";
         backgroundImg.canvasCtx.fillText("Final Score: " + points, 220, 220);
         
+        /*Stop the character from moving*/
+        character.dx = 0;
+        character.dy = 0;
+        
         clearInterval(gameTimer);   //TESTING!!!!!!!!!!!!!! - SHOULDN'T BE HERE
     }
 }
 
+/*Update the enemy position on the screen by pixels*/
 function moveEnemies() {
     var i;  //Loop Counter
     
@@ -208,7 +216,7 @@ function redrawCPaths() {
     
     numPaths = pathCCount; //pathC.length;
     if (numPaths > 0) {
-       console.log(pathCCount);   //TESTING!!!!!!!!!!
+       //console.log(pathCCount);   //TESTING!!!!!!!!!!
        /*Draw all previous paths*/
        for (i = 0; i < numPaths - 1; i++) {
            pX1 = pathC[i].x;
