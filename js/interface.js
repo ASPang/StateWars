@@ -108,15 +108,15 @@ imageLib.prototype.setTitle = function(text, xPos, yPos, fontSize, fontWeight, f
    
    /*Parse the style string*/
    fontStyle = this.parseFontStyle(style);
-   console.log(fontStyle[0]+ " "  + fontStyle[1]+ " "  + fontStyle[2]); //TESTING!!!!!!!!!!!!!
+   //console.log(fontStyle[0]+ " "  + fontStyle[1]+ " "  + fontStyle[2]); //TESTING!!!!!!!!!!!!!
    
    /*Determine the width and height of the button*/
    this.canvasCtx.font = style; //Temporary apply the style on the canvas
    width = Math.floor(this.canvasCtx.measureText(text).width);
    height =  fontStyle[1].substring(0,fontStyle[1].length-2); //substring(startPosition,length)
    
-   console.log("wdith " + width + " height " + height); //TESTING!!!!!!!!!!!!!
-   console.log(xPos + " " + yPos);
+   /*console.log("wdith " + width + " height " + height); //TESTING!!!!!!!!!!!!!
+   console.log(xPos + " " + yPos);*/
    
    /*Save the button properties*/   
    this.button["startButton"] = {
@@ -131,15 +131,8 @@ imageLib.prototype.setTitle = function(text, xPos, yPos, fontSize, fontWeight, f
       height: height
    }
    
-   /*Store the text for the start button*/
-   this.startBText = text;
-   
-   /*Save the text location on the screen*/
-   this.startBPosX = xPos;
-   this.startBPoxY = yPos;
-   
-   /*Save the style*/
-   this.startBStyle = style;
+   /*Save the button name*/
+   this.buttonName.push("startButton");
  };
  
  /*Draw the start button on the canvas*/
@@ -183,6 +176,7 @@ imageLib.prototype.setTitle = function(text, xPos, yPos, fontSize, fontWeight, f
  imageLib.prototype.settingScreen = function() {
  };
  
+ /*Parses the style string into the font weight, size, and type*/
  imageLib.prototype.parseFontStyle = function(style) {
    var fontStyle = [];
    

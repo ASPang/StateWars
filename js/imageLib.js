@@ -67,20 +67,10 @@ function imageLib(canvasName, width, height, xPos, yPos) {
     
     /***Interface***/
     this.button = {};
+    this.buttonName = [];
     
     /*Intro/Menu Screen*/
     this.introImg = {};
-    
-    
-    /*Start button text*/
-    this.startBText = "";
-   
-   /*Start button location on the screen*/
-   this.startBPosX = 0;
-   this.startBPoxY = 0;
-   
-   /*Start button Style*/
-   this.startBStyle = "";
 };
 
 /*Add image to the canvas*/

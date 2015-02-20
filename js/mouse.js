@@ -24,7 +24,8 @@ function mouseClick(e) {
 /*Determine the current location of the mouse*/
 function mouseLoc(e) {
    var x, y;   //Mouse coordinates
-   var bX, bY, bHeight, bWidth;  //variable 
+   var bX, bY, bHeight, bWidth;  //button variables
+   var numButton, i, buttonName; //Button loop
    
    /*Get the mouse coordinate*/
    x = e.layerX;
@@ -34,40 +35,39 @@ function mouseLoc(e) {
    x -= backgroundImg.canvas.offsetLeft;
    y -= backgroundImg.canvas.offsetTop;
   
-  
-  /*var oldStyle = backgroundImg.canvasCtx.font;  //Save the default setting
-   var newStyle;  //New setting
-   
-   backgroundImg.canvasCtx.font = newStyle;
-   
-   
-   
-   var stringT = "Start";
-   console.log(x + " " + y + " " +  backgroundImg.canvasCtx.measureText(stringT).width);  //TESTING!!!!!!!!!!!
-  */
-  
+  //console.log(backgroundImg.buttonName.length + backgroundImg.buttonName[backgroundImg.buttonName.length - 1]);
   /*Determine a button is selected*/
-  //newStyle = backgroundImg.button["startButton"].font; //Button style
-  bX = backgroundImg.button["startButton"].x;
-  bY = backgroundImg.button["startButton"].y;
-  //bWidth = backgroundImg.canvasCtx.measureText(backgroundImg.button["startButton"].text).width;
-  bWidth = backgroundImg.button["startButton"].width;
-  bHeight = backgroundImg.button["startButton"].height;
+  numButton = backgroundImg.buttonName.length;
   
-  console.log(x + " " + y + " " + bX + " " + bY);  //TESTING!!!!!!!!!!!
-  
-  if(x >= bX  && x <= (bX + bWidth) && y <= bY && y >= (bY-bHeight)){
-      document.body.style.cursor = "pointer";
-      console.log("HERE");
-      backgroundImg.canvasCtx.fillStyle = "red";
-      backgroundImg.showStartButton(); 
+   for (i = 0; i < numButton; i++) {  
+     buttonName = backgroundImg.button[backgroundImg.buttonName[0]]; //backgroundImg.buttonName[i];
+     bX = buttonName.x;
+     bY = buttonName.y;
+     bWidth = buttonName.width;
+     bHeight = buttonName.height;
+     
+     /*
+     bX = backgroundImg.button[buttonName].x;
+     bY = backgroundImg.button[buttonName].y;
+     bWidth = backgroundImg.button[buttonName].width;
+     bHeight = backgroundImg.button[buttonName].height;
+     */
+     
+     //console.log(x + " " + y + " " + bX + " " + bY);  //TESTING!!!!!!!!!!!
+     /*Determine if the button is selected*/
+     if(x >= bX  && x <= (bX + bWidth) && y <= bY && y >= (bY-bHeight)){
+         //document.body.style.cursor = "pointer";
+         console.log("HERE");
+         backgroundImg.canvasCtx.fillStyle = "red";
+         backgroundImg.showStartButton(); 
+     }
+     else{
+         //document.body.style.cursor = "";
+         backgroundImg.canvasCtx.fillStyle = "black";
+         //backgroundImg.showStartButton(); 
+         backgroundImg.introScreen();
+     }
   }
-  else{
-      document.body.style.cursor = "";
-      backgroundImg.canvasCtx.fillStyle = "Black";
-      backgroundImg.showStartButton(); 
-  }
-  
   /*Reset canvas font to default*/
    backgroundImg.canvasCtx.font = backgroundImg.fontDefault;
 }

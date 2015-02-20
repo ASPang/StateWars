@@ -33,7 +33,8 @@ function initGame() {
     //startTimer();   ///TEST!!!!!!!!!!!!!!!
     
     /*Display the Menu Screen*/
-    backgroundImg.introScreen();
+    //backgroundImg.introScreen();
+    menuScreen();
 }
 
 /*Initialize the canvas*/

@@ -19,6 +19,19 @@ var numGamePlay = 0;
 var milSec = 1000;
 
 
+function menuScreen() {
+   /*var oneSec = 30;
+   
+   
+   clearInterval(gameTimer);   
+   startClock = new Date().getTime();*/
+   
+   /*Refresh the screen*/
+   //setInterval(function(){backgroundImg.introScreen();}, oneSec);    
+   
+   //startTimer();
+}
+
 /*Start the game when the start button is clicked*/
 function startTimer() { 
    clearInterval(gameTimer);   
