@@ -62,6 +62,9 @@ function imageLib(canvasName, width, height, xPos, yPos) {
     this.gridSqWidth = 0;
     this.gridSqHeight = 0;
     
+    /***Font***/
+    this.fontDefault = "normal 12px Arial";
+    
     /***Interface***/
     this.button = {};
     

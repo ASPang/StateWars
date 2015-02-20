@@ -26,6 +26,7 @@ function initGame() {
     /*Display the board*/
     setupCanvas();
     
+    /*Add mouse event handlers*/
     backgroundImg.canvas.addEventListener("click", mouseClick, false);
     backgroundImg.canvas.addEventListener("mousemove", mouseLoc, false); 
     
@@ -42,6 +43,7 @@ function setupCanvas() {
     ctx = c.getContext("2d");
 }
 
+/*Preload all the game images*/
 function preloadGameImages() {   
     gameImage = new preloadImages()
     
@@ -51,7 +53,7 @@ function preloadGameImages() {
     }
 }
 
-
+/*Set up the canvas*/
 function setupCanvas() {
     var gameCanvas = "gameCanvas";
     var height = 50;
