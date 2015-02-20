@@ -70,18 +70,28 @@ function keyDownEvent(e) {
             break;
         case 68:
             // D key pressed
+            dKeyEvent();
             
             break;
         case 70:
             // F key pressed
+            fKeyEvent();
+            
+            break;
+            
+        case 83:
+            // S Key pressed
+            sKeyEvent();
             
             break;
     }
 }
 
+/*directional movement*/
 var move = 1;
 var dir = 1;
 
+/*Event when up arrow key is pressed*/
 function upArrowKeyEvent() {   
     /*Enable character to jump*/
     if ((character.yPos + character.height) >= character.canvas.height) {
@@ -102,6 +112,7 @@ function upArrowKeyEvent() {
     updateGame();
 }
 
+/*Event when down arrow key is pressed*/
 function downArrowKeyEvent() {
     /*Move character image*/
     character.redraw(character.xPos, character.yPos  + move);
@@ -116,6 +127,7 @@ function downArrowKeyEvent() {
     updateGame();
 }
 
+/*Event when right arrow key is pressed*/
 function rightArrowKeyEvent() {
     /*Move character image*/
     character.redraw(character.xPos + move, character.yPos);
@@ -130,7 +142,7 @@ function rightArrowKeyEvent() {
     updateGame();
 }
 
-
+/*Event when left arrow key is pressed*/
 function leftArrowKeyEvent() {
     /*Move character image*/
     character.redraw(character.xPos - move, character.yPos);
@@ -145,7 +157,7 @@ function leftArrowKeyEvent() {
     updateGame();
 }
 
-
+/*Event when space bar is pressed*/
 function spaceBarKeyEvent() {
     /*Draw the projectile*/
     var newProj = new physics(backgroundImg.canvasName, 10, 10, character.xPos+25, 275);
@@ -155,6 +167,53 @@ function spaceBarKeyEvent() {
     
     projectile.push(newProj);
     updateGame();
+}
+
+/*Event when the "s" is pressed*/
+function sKeyEvent() {
+   /*Update character state*/
+   if (dir == 4) {
+      if (character.dx  == 4) {
+         character.dx /= 4;
+      }
+      else if (character.dy == 4)  {
+         character.dy /= 4;
+      }
+   }
+   dir = 1;
+   
+   /*Update character image*/
+   character.addImg(gameImage.loadedImg["Water"]);
+}
+
+/*Event when the "d" is pressed*/
+function dKeyEvent() {
+   /*Update character state*/
+   if (dir != 4) {
+      character.dx *= 4;
+      character.dy *= 4;
+   }   
+   dir = 4;
+   
+   /*Update character image*/
+   character.addImg(gameImage.loadedImg["Lightning"]);
+}
+
+/*Event when the "f" is pressed*/
+function fKeyEvent() {
+   /*Update character state*/
+   if (dir == 4) {
+      if (character.dx  == 4) {
+         character.dx /= 4;
+      }
+      else if (character.dy == 4)  {
+         character.dy /= 4;
+      }
+   }
+   dir = 1;
+   
+   /*Update character image*/
+   character.addImg(gameImage.loadedImg["Fire"]);
 }
 
 /*Save the new turning point of the path*/

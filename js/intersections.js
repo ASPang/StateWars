@@ -31,7 +31,7 @@ function characterHitLine() {
            pX2 = pathC[i+1].oX;
            pY2 = pathC[i+1].oY;
            
-           if (pX2 - pX1 == 0 && character.xPos == pX1 && character.xPos == pX2 && lastKey == 37) { //Vertical line and left key
+           if (pX2 - pX1 == 0 && character.xPos == pX1 && character.xPos == pX2) { //Vertical line and left key
             console.log("HERE - X");
               if (pY1 > pY2) {
                  if (character.yPos >= pY2 && character.yPos <= pY1) {
@@ -44,20 +44,7 @@ function characterHitLine() {
                  }
               }
            }
-           else if (pX2 - pX1 == 0 && character.xPos == pX1 && character.xPos == pX2 && lastKey == 39) { //Vertical line and right key
-            console.log("HERE - X");
-              if (pY1 > pY2) {
-                 if (character.yPos >= pY2 && character.yPos <= pY1) {
-                     endGameFlag = true;
-                 }
-              }
-              else if (pY1 < pY2) {
-                 if (character.yPos >= pY1 && character.yPos <= pY2) {
-                     endGameFlag = true;
-                 }
-              }
-           }
-           else if (pY2 - pY1 == 0 && character.yPos == pY1 && character.yPos == pY2 && (lastKey == 38 || lastKey == 40)) { //Horizontal line
+           else if (pY2 - pY1 == 0 && character.yPos == pY1 && character.yPos == pY2) { //Horizontal line
                console.log("HERE - Y");
                if (pX1 > pX2) {
                     if (character.xPos >= pX2 && character.xPos <= pX1) {
