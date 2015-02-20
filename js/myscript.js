@@ -26,7 +26,10 @@ function initGame() {
     /*Display the board*/
     setupCanvas();
     
-    startTimer();   ///TEST!!!!!!!!!!!!!!!
+    //startTimer();   ///TEST!!!!!!!!!!!!!!!
+    
+    /*Display the Menu Screen*/
+    backgroundImg.introScreen();
 }
 
 /*Initialize the canvas*/
@@ -55,11 +58,15 @@ function setupCanvas() {
     /*Add background image to canvas*/
     backgroundImg.addImg(gameImage.loadedImg["background"]);
     
-    /*Initate grid*/
+    /*Setup interface screens*/
+    setupInterfaces();
+    
+    /*Initate grid
     //backgroundImg.canvasGrid(backgroundImg.canvas.width, backgroundImg.canvas.height);
     backgroundImg.canvasGrid(25);   //Square size
     backgroundImg.gridSqHeight = 25;
     backgroundImg.gridSqWidth = 25;
+    */
     
     /*Draw the character on the screen*/
     setupCharacter(gameCanvas);
@@ -69,7 +76,19 @@ function setupCanvas() {
     //setupObstacles();
 }
 
+/*Set up the different interfaces of the game*/
+function setupInterfaces() {
+   var centerVer, centerHor;
+   
+   //centerVer = backgroundImg.canvas.width/2;
 
+   /*Set up the intro/menu interface*/
+   backgroundImg.introBackground(gameImage.loadedImg["introMenuBgd"], 0, 0, 600, 400); //Set up the background
+   backgroundImg.setTitle("Element Race", 100, 200, "bold 60px Arial" );//Set up the title
+   backgroundImg.setStartButton("Start", 50, 350, "bold 24px Arial" );  //Set up the start button
+}
+
+/*Set up the obstacles for the game*/
 function setupObstacles() {
     path[0] = new imageLib(backgroundImg.canvasName, 0, 0, 0, 0);
     path[0].endX = 0,
@@ -95,34 +114,14 @@ function setupCharacter(gameCanvas) {
     
     /*Add the character to the canvas*/
     character = new physics(gameCanvas, width, height, 275, 210);
-    backgroundImg.strokeStyle = "red";
-    backgroundImg.lineWidth = character.height;
     character.addImg(gameImage.loadedImg["Fire"]);
     
-    /*pathC[0] = {
-      x: 275,
-      y: 210,
-      rbg: "blue" 
-    };
-    
-    pathCCount++;*/
-    
-    /*Set up the move number based on the character's size*/
-    //move = character.height/2;
+    /*Set line colour*/
+    backgroundImg.strokeStyle = "red";
+    backgroundImg.lineWidth = character.height;
+        
+    /*Set movement speed*/
     move = 1;
-    
-    //console.log(pathC[0].x);
-    /*Place the character to array position in the array
-    cord = backgroundImg.aryNumToXYCord(0);
-    
-    x = backgroundImg.getGridXPos(cord[0]);
-    y = backgroundImg.getGridYPos(cord[1]);
-    console.log(x + " "  + y);
-    //backgroundImg.xyCordToAryNum();
-    backgroundImg.grid[100] = "0";
-    
-    character = new physics(gameCanvas, width, height, x, y);
-    character.addImg(gameImage.loadedImg["character"]);*/
 }
 
 function addEnemy(gameCanvas) {

@@ -17,8 +17,8 @@ var ctx;    //Canvas Context
 var cBlock;     //Block canvas
 var ctxBlock;   //Block context
 
-var gameImage;
-var imgSrc = ["background", "character", "enemy", "Fire", "Water", "Lightning"];   /*Name of images*/
+var gameImage; //Object that'll store all the preloaded images
+var imgSrc = ["background", "introMenuBgd", "character", "enemy", "Fire", "Water", "Lightning"];   //Name of images
 var backgroundImg;  //background image object
 var character;  //character image object
 var candy;  //candy image object

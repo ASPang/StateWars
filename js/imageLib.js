@@ -61,6 +61,23 @@ function imageLib(canvasName, width, height, xPos, yPos) {
     this.gridCol = 0;
     this.gridSqWidth = 0;
     this.gridSqHeight = 0;
+    
+    /***Interface***/
+    this.button = {};
+    
+    /*Intro/Menu Screen*/
+    this.introImg = {};
+    
+    
+    /*Start button text*/
+    this.startBText = "";
+   
+   /*Start button location on the screen*/
+   this.startBPosX = 0;
+   this.startBPoxY = 0;
+   
+   /*Start button Style*/
+   this.startBStyle = "";
 };
 
 /*Add image to the canvas*/
@@ -301,3 +318,12 @@ imageLib.prototype.getGridXPos = function(row) {
 imageLib.prototype.addToGrid = function(pos, data){
     this.grid[pos] = data;
 };
+
+
+
+
+
+
+
+ 
+ 
