@@ -96,6 +96,7 @@ function setupCharacter(gameCanvas) {
     /*Add the character to the canvas*/
     character = new physics(gameCanvas, width, height, 275, 210);
     backgroundImg.strokeStyle = "red";
+    backgroundImg.lineWidth = character.height;
     character.addImg(gameImage.loadedImg["Fire"]);
     
     /*pathC[0] = {

@@ -214,6 +214,7 @@ function redrawCPaths() {
     var i = 0, numPaths;
     var pX1, pY1, pX2, pY2; //points
     var curColour = backgroundImg.strokeStyle;
+    var curWidth = backgroundImg.lineWidth;
     
     numPaths = pathCCount; //pathC.length;
     if (numPaths > 0) {
@@ -227,6 +228,7 @@ function redrawCPaths() {
            pY2 = pathC[i+1].y;
            
            backgroundImg.strokeStyle = pathC[i+1].rbg;   //Update the line background
+           backgroundImg.lineWidth = pathC[i+1].width;
            backgroundImg.drawLine(pX1, pY1, pX2, pY2);
        }
        
@@ -238,6 +240,7 @@ function redrawCPaths() {
        pY2 = centPathY(character.yPos);
  
        backgroundImg.strokeStyle = curColour; //Update the line background
+       backgroundImg.lineWidth = curWidth;
        backgroundImg.drawLine(pX1, pY1, pX2, pY2);
        
        /*Revert the colour back to the original colour*/

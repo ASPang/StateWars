@@ -191,9 +191,11 @@ function sKeyEvent() {
    dir = 1;
    
    /*Update character image*/
-   //character.addImg(gameImage.loadedImg["Water"]);
    character.image = (gameImage.loadedImg["Water"]);
+   
+   /*Update the character's Path*/
    backgroundImg.strokeStyle = "blue";
+   backgroundImg.lineWidth = character.height/2;
 }
 
 /*Event when the "d" is pressed*/
@@ -209,7 +211,10 @@ function dKeyEvent() {
    
    /*Update character image*/
    character.image = (gameImage.loadedImg["Lightning"]);
+   
+   /*Update the character's Path*/
    backgroundImg.strokeStyle = "yellow";
+   backgroundImg.lineWidth = character.height/2;
 }
 
 /*Event when the "f" is pressed*/
@@ -234,11 +239,11 @@ function fKeyEvent() {
    dir = 1;
    
    /*Update character image*/
-   //character.addImg(gameImage.loadedImg["Fire"]);
    character.image = (gameImage.loadedImg["Fire"]);
    
    /*Update the character's Path*/
    backgroundImg.strokeStyle = "red";
+   backgroundImg.lineWidth = character.height;
 }
 
 /*Return the colour of the character*/
@@ -254,11 +259,25 @@ function characterImgColour() {
    }
 }
 
+/*Return the appropriate line width based on the character colour*/
+function characterImgLineWidth(colour) {
+   if (colour == "red") {
+      return character.height;
+   }
+   else {
+      return character.height/2;
+   }
+}
+
 /*Save the new turning point of the path*/
 function updateCPath() {    
     /*Determine the character's colour*/
     var color;
     color = characterImgColour();
+    
+    /*Determine the line width based on the colour*/
+    var lineWidth;
+    lineWidth = characterImgLineWidth(color);
     
     /*Save the point*/
     if (lastKey == 38 || lastKey == 40) { //up or down key - for horizontal movement
@@ -267,7 +286,8 @@ function updateCPath() {
             y: character.oldPosY  + Math.floor(character.width/2),
             oX: character.oldPosX, 
             oY: character.oldPosY,
-            rbg: color
+            rbg: color,
+            width: lineWidth
        };
     }
     else if (lastKey == 37 || lastKey == 39) {  //left or right key - vertical movement
@@ -276,12 +296,11 @@ function updateCPath() {
             y: character.oldPosY + Math.floor(character.height/2),
             oX: character.oldPosX, 
             oY: character.oldPosY,
-            rbg: color
+            rbg: color,
+            width: lineWidth
        };
     }
-      
     pathCCount++;
-    //console.log(character.oldPosX + " " + character.oldPosY);   //TESTING!!!!!!!!!! - DISPLAY ORIGINAL OLDPOSITIONS OF THE CHARACTER
 }
 
 /*Return updated x value so the path is centered to the character*/

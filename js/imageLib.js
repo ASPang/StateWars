@@ -100,7 +100,6 @@ imageLib.prototype.redraw = function(newPosX, newPosY) {
     this.oldPosY = this.yPos;
     this.xPos = newPosX;
     this.yPos = newPosY;   
-    //console.log(this.oldPosX);
     
     /*Determine if the image needs to be repeated*/
     this.backgroundRepeat();
