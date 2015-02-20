@@ -18,14 +18,22 @@
 
 
 function mouseClick(e) {
-   mouseLoc(e);
+   var button;
+   
+   button = mouseLoc(e);
+   
+   /*Determine the action for the appropriate button*/
+   if (button == "startButton") { //Start game button
+      /*Start the game*/
+      startTimer();
+   }
 }
  
 /*Determine the current location of the mouse*/
 function mouseLoc(e) {
    var x, y;   //Mouse coordinates
    var bX, bY, bHeight, bWidth;  //button variables
-   var numButton, i, buttonName; //Button loop
+   var numButton, i, buttonName, selected = "null"; //Button loop
    
    /*Get the mouse coordinate*/
    x = e.layerX;
@@ -58,8 +66,9 @@ function mouseLoc(e) {
      if(x >= bX  && x <= (bX + bWidth) && y <= bY && y >= (bY-bHeight)){
          //document.body.style.cursor = "pointer";
          console.log("HERE");
-         backgroundImg.canvasCtx.fillStyle = "red";
+         backgroundImg.canvasCtx.fillStyle = "blue";
          backgroundImg.showStartButton(); 
+         selected = backgroundImg.buttonName[0];
      }
      else{
          //document.body.style.cursor = "";
@@ -70,4 +79,7 @@ function mouseLoc(e) {
   }
   /*Reset canvas font to default*/
    backgroundImg.canvasCtx.font = backgroundImg.fontDefault;
+   
+   /*Return the button that was hovered over*/
+   return selected;
 }

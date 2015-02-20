@@ -20,6 +20,8 @@ var milSec = 1000;
 
 
 function menuScreen() {
+   backgroundImg.introScreen();
+
    /*var oneSec = 30;
    
    
