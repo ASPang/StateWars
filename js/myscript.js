@@ -26,6 +26,9 @@ function initGame() {
     /*Display the board*/
     setupCanvas();
     
+    backgroundImg.canvas.addEventListener("click", mouseClick, false);
+    backgroundImg.canvas.addEventListener("mousemove", mouseLoc, false); 
+    
     //startTimer();   ///TEST!!!!!!!!!!!!!!!
     
     /*Display the Menu Screen*/

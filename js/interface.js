@@ -125,12 +125,6 @@
    
    /*Reset canvas font to default*/
    this.canvasCtx.font = oldStyle;
-   
-   /*var oldStyle = this.canvasCtx.font;
-   var newStyle = this.startBStyle;
-   
-   this.canvasCtx.font = newStyle;
-   this.canvasCtx.fillText(this.startBText, tihs.startBPosX, tihs.startBPosY);*/
  };
  
  /*Set up the instructions button*/
