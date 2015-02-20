@@ -24,7 +24,7 @@ function startTimer() {
    clearInterval(gameTimer);   
    startClock = new Date().getTime();
    
-   var oneSec = 1;
+   var oneSec = 10;
    setInterval(function(){updateGame();}, oneSec);     
 
 //    /*Initiate game*/
@@ -213,6 +213,7 @@ function redrawPaths() {
 function redrawCPaths() {
     var i = 0, numPaths;
     var pX1, pY1, pX2, pY2; //points
+    var curColour = backgroundImg.strokeStyle;
     
     numPaths = pathCCount; //pathC.length;
     if (numPaths > 0) {
@@ -225,9 +226,8 @@ function redrawCPaths() {
            pX2 = pathC[i+1].x;
            pY2 = pathC[i+1].y;
            
+           backgroundImg.strokeStyle = pathC[i+1].rbg;   //Update the line background
            backgroundImg.drawLine(pX1, pY1, pX2, pY2);
-           //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
-           //console.log("HERE");
        }
        
        /*Draw the current path getting built*/
@@ -236,8 +236,12 @@ function redrawCPaths() {
 
        pX2 = centPathX(character.xPos);
        pY2 = centPathY(character.yPos);
-       //console.log(pX1 + " " + pY1 + " " + pX2 + " " + pY2);
+ 
+       backgroundImg.strokeStyle = curColour; //Update the line background
        backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+       
+       /*Revert the colour back to the original colour*/
+       backgroundImg.strokeStyle = curColour;
     }
 }
 

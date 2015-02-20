@@ -20,10 +20,10 @@ function characterHitLine() {
     
     numPaths = pathCCount; 
     //console.log(character.xPos + " " + character.yPos);
-    /*Go through all the paths*/
-    
+    //console.log(character.xPos);
     
     if (numPaths > 0) {
+       /*Go through all the paths*/
        for (i = 0; i < numPaths - 1; i++) {
            pX1 = pathC[i].oX;
            pY1 = pathC[i].oY;
@@ -31,8 +31,16 @@ function characterHitLine() {
            pX2 = pathC[i+1].oX;
            pY2 = pathC[i+1].oY;
            
-           if (pX2 - pX1 == 0 && character.xPos == pX1 && character.xPos == pX2) { //Vertical line and left key
-            console.log("HERE - X");
+           /*if (i == 0) {
+               //console.log(pY2 - pY1 + " " + character.yPos);
+               console.log(character.yPos + " " + pY1 + " " + pY2);
+            }*/
+           
+           /*Determine if the character's current location hits the line*/
+           //if (pX2 - pX1 == 0 && ((character.xPos >= pX1 && character.xPos <= pX1 + 1) || (character.xPos >= pX2 && character.xPos <= pX2 ))) { //Vertical line with left and right key
+           //if (pX2 - pX1 == 0 && (character.xPos == pX1 || character.xPos + 1 == pX1 || character.xPos == pX2)) {
+           //if (pX2 - pX1 == 0 && ((character.xPos >= pX1 && character.xPos <= pX1 + 1) || (character.xPos >= pX2 && character.xPos <= pX2 ))) { //Vertical line with left and right key
+           if (pX2 - pX1 == 0 && character.xPos == pX1 && character.xPos == pX2) { //Vertical line with left and right key
               if (pY1 > pY2) {
                  if (character.yPos >= pY2 && character.yPos <= pY1) {
                      endGameFlag = true;
@@ -44,8 +52,11 @@ function characterHitLine() {
                  }
               }
            }
-           else if (pY2 - pY1 == 0 && character.yPos == pY1 && character.yPos == pY2) { //Horizontal line
-               console.log("HERE - Y");
+           //else if (pY2 - pY1 == 0 && character.yPos == pY1 || (character.yPos + character.height >= pY1 && character.yPos <= pY1)) { //Horizontal line with up and down key
+           //else if (pY2 - pY1 == 0 && (character.yPos == pY1 || character.yPos - 1 == pY1 || character.yPos == pY2)) { //Horizontal line with up and down key
+           else if (pY2 - pY1 == 0 && character.yPos == pY1 && character.yPos == pY2) { //Horizontal line with up and down key
+           //else if (pY2 - pY1 == 0 && character.yPos == pY1 && character.yPos == pY2) { //Horizontal line with up and down key
+               //console.log("HERE - Y " + character.xPos + "  " + pX1 + " " + pX2);
                if (pX1 > pX2) {
                     if (character.xPos >= pX2 && character.xPos <= pX1) {
                         endGameFlag = true;

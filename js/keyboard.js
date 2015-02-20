@@ -101,7 +101,7 @@ function upArrowKeyEvent() {
         /*Move character image*/
         character.redraw(character.xPos, character.yPos  - move);
         character.stopWallCollision();
-        
+        console.log("HERE" + character.xPos);
         /*Saving character direction*/
         character.dx = 0;
         character.dy = -dir;
@@ -171,60 +171,103 @@ function spaceBarKeyEvent() {
 
 /*Event when the "s" is pressed*/
 function sKeyEvent() {
+   var moveVal = 4;
+   
    /*Update character state*/
-   if (dir == 4) {
-      if (character.dx  == 4) {
-         character.dx /= 4;
+   if (dir == moveVal) {
+      if (character.dx % 4 == 0 && character.dx < 0) {
+         character.dx /= moveVal;
       }
-      else if (character.dy == 4)  {
-         character.dy /= 4;
+      else if (character.dy % 4 == 0 && character.dy < 0) {
+         character.dy /= moveVal;
+      }
+      else if (character.dx  == moveVal) {
+         character.dx /= moveVal;
+      }
+      else if (character.dy == moveVal)  {
+         character.dy /= moveVal;
       }
    }
    dir = 1;
    
    /*Update character image*/
-   character.addImg(gameImage.loadedImg["Water"]);
+   //character.addImg(gameImage.loadedImg["Water"]);
+   character.image = (gameImage.loadedImg["Water"]);
+   backgroundImg.strokeStyle = "blue";
 }
 
 /*Event when the "d" is pressed*/
 function dKeyEvent() {
+   var moveVal = 4;
+
    /*Update character state*/
-   if (dir != 4) {
-      character.dx *= 4;
-      character.dy *= 4;
+   if (dir != moveVal) {
+      character.dx *= moveVal;
+      character.dy *= moveVal;
    }   
-   dir = 4;
+   dir = moveVal;
    
    /*Update character image*/
-   character.addImg(gameImage.loadedImg["Lightning"]);
+   character.image = (gameImage.loadedImg["Lightning"]);
+   backgroundImg.strokeStyle = "yellow";
 }
 
 /*Event when the "f" is pressed*/
 function fKeyEvent() {
+   var moveVal = 4;
+   
    /*Update character state*/
-   if (dir == 4) {
-      if (character.dx  == 4) {
-         character.dx /= 4;
+   if (dir == moveVal) {
+      if (character.dx % 4 == 0 && character.dx < 0) {
+         character.dx /= moveVal;
       }
-      else if (character.dy == 4)  {
-         character.dy /= 4;
+      else if (character.dy % 4 == 0 && character.dy < 0) {
+         character.dy /= moveVal;
+      }
+      else if (character.dx  == moveVal) {
+         character.dx /= moveVal;
+      }
+      else if (character.dy == moveVal)  {
+         character.dy /= moveVal;
       }
    }
    dir = 1;
    
    /*Update character image*/
-   character.addImg(gameImage.loadedImg["Fire"]);
+   //character.addImg(gameImage.loadedImg["Fire"]);
+   character.image = (gameImage.loadedImg["Fire"]);
+   
+   /*Update the character's Path*/
+   backgroundImg.strokeStyle = "red";
+}
+
+/*Return the colour of the character*/
+function characterImgColour() {
+   if (character.image == gameImage.loadedImg["Fire"]) {
+      return "red";
+   }
+   else if (character.image == gameImage.loadedImg["Lightning"]) {
+      return "yellow";
+   }
+   else if (character.image == gameImage.loadedImg["Water"]) {
+      return "blue";
+   }
 }
 
 /*Save the new turning point of the path*/
 function updateCPath() {    
+    /*Determine the character's colour*/
+    var color;
+    color = characterImgColour();
+    
+    /*Save the point*/
     if (lastKey == 38 || lastKey == 40) { //up or down key - for horizontal movement
        pathC[pathCCount] = {
             x: character.oldPosX + Math.floor(character.width/2), 
             y: character.oldPosY  + Math.floor(character.width/2),
             oX: character.oldPosX, 
             oY: character.oldPosY,
-            rbg: "blue"
+            rbg: color
        };
     }
     else if (lastKey == 37 || lastKey == 39) {  //left or right key - vertical movement
@@ -233,7 +276,7 @@ function updateCPath() {
             y: character.oldPosY + Math.floor(character.height/2),
             oX: character.oldPosX, 
             oY: character.oldPosY,
-            rbg: "blue"
+            rbg: color
        };
     }
       
