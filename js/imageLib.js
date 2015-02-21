@@ -71,6 +71,10 @@ function imageLib(canvasName, width, height, xPos, yPos) {
     
     /*Intro/Menu Screen*/
     this.introImg = {};
+    this.introTitle = ""
+    
+    /*Game Over*/
+    this.gameOverMessage = [];
 };
 
 /*Add image to the canvas*/

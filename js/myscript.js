@@ -92,6 +92,10 @@ function setupInterfaces() {
    backgroundImg.introBackground(gameImage.loadedImg["introMenuBgd"], 0, 0, 600, 400); //Set up the background
    backgroundImg.setTitle("Element Race", 100, 200, "bold 60px Arial" );//Set up the title
    backgroundImg.setStartButton("Start", 50, 350, "bold 24px Arial" );  //Set up the start button
+   
+   /*Set up the Game Over Interface screen*/
+   backgroundImg.setGameOverMsg("GAME OVER", 125, 160, "bold 60px Arial", "red");
+   backgroundImg.setNewGameButton("New Game", 125, 360,"bold 30px Arial", "black", "blue");
 }
 
 /*Set up the obstacles for the game*/

@@ -42,7 +42,8 @@ var pathECount = 0;
 /*Projectile Information*/
 var projectile = [];
 
-
+/*Interface Information*/
+var screenDisplayed = "intro";
 
 
 

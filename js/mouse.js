@@ -23,9 +23,12 @@ function mouseClick(e) {
    button = mouseLoc(e);
    
    /*Determine the action for the appropriate button*/
-   if (button == "startButton") { //Start game button
+   if (button == "startButton" || button == "newGame") { //Start game button
       /*Start the game*/
       startTimer();
+      
+      /*Update the game screen flag*/
+      screenDisplayed = "gameScreen";
    }
 }
  
@@ -48,7 +51,7 @@ function mouseLoc(e) {
   numButton = backgroundImg.buttonName.length;
   
    for (i = 0; i < numButton; i++) {  
-     buttonName = backgroundImg.button[backgroundImg.buttonName[0]]; //backgroundImg.buttonName[i];
+     buttonName = backgroundImg.button[backgroundImg.buttonName[i]]; //backgroundImg.buttonName[i];
      bX = buttonName.x;
      bY = buttonName.y;
      bWidth = buttonName.width;
@@ -66,15 +69,27 @@ function mouseLoc(e) {
      if(x >= bX  && x <= (bX + bWidth) && y <= bY && y >= (bY-bHeight)){
          //document.body.style.cursor = "pointer";
          console.log("HERE");
-         backgroundImg.canvasCtx.fillStyle = "blue";
-         backgroundImg.showStartButton(); 
-         selected = backgroundImg.buttonName[0];
+         if (screenDisplayed == "intro") {
+            backgroundImg.canvasCtx.fillStyle = "blue";
+            backgroundImg.showStartButton(); 
+            selected = backgroundImg.buttonName[i];
+         }
+         else if (screenDisplayed == "gameOver") {
+            //backgroundImg.canvasCtx.fillStyle = "blue";
+            backgroundImg.showHoverButton("newGame"); 
+            selected = backgroundImg.buttonName[i];
+         }
      }
      else{
          //document.body.style.cursor = "";
          backgroundImg.canvasCtx.fillStyle = "black";
          //backgroundImg.showStartButton(); 
-         backgroundImg.introScreen();
+         if (screenDisplayed == "intro") {
+            backgroundImg.introScreen();
+         }
+         else if (screenDisplayed == "gameOver") {
+            backgroundImg.gameOverScreen();
+         }
      }
   }
   /*Reset canvas font to default*/

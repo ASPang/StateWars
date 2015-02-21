@@ -40,12 +40,15 @@ function startTimer() {
    startClock = new Date().getTime();
    
    var oneSec = 10;
-   setInterval(function(){updateGame();}, oneSec);     
+       endGameFlag = false;
 
 //    /*Initiate game*/
-//    initGame();
-    endGameFlag = false;
+    //initGame();
+    setupCanvas();
     
+    
+    
+   gameTimer = setInterval(function(){updateGame();}, oneSec);  
 }
 
 
@@ -91,24 +94,32 @@ function updateGame() {
     if (endGameFlag == true) { 
         clearInterval(gameTimer);
                 
-        /*Disable all enemies*/ 
+        /*Disable all enemies*
         for (i = 0; i< enemy.length; i++) {                        
             enemy[i].dx = 0;
             enemy[i].dy = 0;
-        }
+        }*/
         
-        /*Inform the user that they lost*/
+        /*Clear all paths*/
+        pathCCount = 0;
+        pathC = [];
+        
+        /*Inform the user that they lost
         backgroundImg.canvasCtx.fillStyle = "red";
         backgroundImg.canvasCtx.font = "bold 60px Arial";
         backgroundImg.canvasCtx.fillText("GAME OVER", 125, 160);
         backgroundImg.canvasCtx.font = "bold 30px Arial";
-        backgroundImg.canvasCtx.fillText("Final Score: " + points, 220, 220);
+        backgroundImg.canvasCtx.fillText("Final Score: " + points, 220, 220);*/
         
         /*Stop the character from moving*/
         character.dx = 0;
         character.dy = 0;
         
-        clearInterval(gameTimer);   //TESTING!!!!!!!!!!!!!! - SHOULDN'T BE HERE
+        /*Set up the option for user to start a new game*/
+        screenDisplayed = "gameOver";
+        backgroundImg.gameOverScreen();
+        
+        //clearInterval(gameTimer);   //TESTING!!!!!!!!!!!!!! - SHOULDN'T BE HERE
     }
 }
 
