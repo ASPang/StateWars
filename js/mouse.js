@@ -8,7 +8,7 @@
  * Filename: mouse.js
  * 
  * Description:
- * This files contains the function that displays different screens of the game.
+ * This files contains the function for the mouse.
  * 
  */
 

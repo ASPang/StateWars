@@ -145,9 +145,10 @@ function rightArrowKeyEvent() {
 /*Event when left arrow key is pressed*/
 function leftArrowKeyEvent() {
     /*Move character image*/
+    console.log(character.xPos);
     character.redraw(character.xPos - move, character.yPos);
     character.stopWallCollision();
-    
+    console.log("after " + character.xPos);
     /*Saving character direction*/
     character.dx = -dir;
     character.dy = 0;
@@ -309,7 +310,7 @@ function centPathX(x) {
    if (lastKey == 38 || lastKey == 40) {
       x = x + Math.floor(character.width/2);
    }
-   
+
    return x;
 }
 

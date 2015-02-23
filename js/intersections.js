@@ -134,6 +134,171 @@ function characterHitLine() {
     }
 }
 
+/*Go through every enemy to determine if they have hit a line*/
+function enemyHitLine() {
+   var i; //loop counter
+   
+   /*Go through all enemies*/
+   for (i = 0; i < enemy.length; i++) {
+      /*Determine if the enemy has hit a player's path*/
+      hitLine(enemy[i], character, pathC, pathCCount, 0);
+      
+      /*Determine if the enemy has hit its own path*/
+   }
+}
+
+/*Determine if the enemy intersects any of the lines*/ 
+function hitLine(character, enemy, path, pathCount, charPath) {
+   var i = 0, numPaths;
+   var pX1, pY1, pX2, pY2; //points
+    
+    numPaths = pathCount; 
+    console.log("UG" + pX1 + " " + character.xPos + " " +  character.dx);
+    if (numPaths > 0) {
+       /*Go through all the paths*/
+       for (i = 0; i < numPaths; i++) {
+         if (i < numPaths - 1) {
+           pX1 = path[i].oX;
+           pY1 = path[i].oY;
+           
+           pX2 = path[i+1].oX;
+           pY2 = path[i+1].oY;
+         }
+         else if (i <= numPaths - 1 && charPath == 0) {
+           pX1 = path[numPaths - 1].x;
+           pY1 = path[numPaths - 1].y;
+           
+           //console.log(pX1 + " " + pX2 + " " +  character.dx);
+           console.log(pX1 + " " + enemy.xPos + " " +  character.dx);
+           pX2 = centPathX(enemy.xPos);
+           pY2 = centPathY(enemy.yPos);
+           console.log(pX1 + " " + pX2 + " " +  character.dx);
+           /*Determine the direction of the character and adjust its position
+           if (character.dx < 0) {
+            pX1 += character.width + 00;
+            pX2 += character.width + 00;
+           }
+           else if (character.dy < 0) {
+            pY1 += character.height + 00;
+            pY2 += character.height + 00;
+           }*/
+           //console.log(pX1 + " " + pX2 + " " +  character.dx + " " + character.xPos);
+         }
+         else {
+            break;
+         }
+           /*
+           var x1 = image.xPos;
+    var x2 = image.xPos + image.width;
+    var y1 = image.yPos;
+    var y2 = image.yPos + image.height;*/
+
+    /*Check to see if the image intersects with another image
+    if ((x2 >= this.xPos) && (x1 <= (this.xPos + this.width)) && (y2 >= this.yPos) && (y1 <= (this.yPos + this.height))){
+        return true;
+    }*/
+           
+           if (pX2 - pX1 == 0) { //Vertical line with left and right key
+              if (pY1 > pY2) {
+                 pX1 += path[i].width/2;
+                 pX2 -= path[i].width/2;
+                 //if (character.yPos >= pY2 && character.yPos <= pY1) {
+                 //if ((pX1 >= character.xPos) && (pX2 <= (character.xPos + character.width)) && (pY1 >= character.yPos) && (pY2 <= (character.yPos + character.height))){
+                 if ((pX1 > character.xPos) && (pX2 < (character.xPos + character.width)) && (pY1 > character.yPos) && (pY2 < (character.yPos + character.height))){
+                     endGameFlag = true;
+                 }
+              }
+              else if (pY1 < pY2) {
+                 pX1 -= path[i].width/2;
+                 pX2 += path[i].width/2;
+                 if ((pX2 > character.xPos) && (pX1 < (character.xPos + character.width)) && (pY2 > character.yPos) && (pY1 < (character.yPos + character.height))){
+                 //if ((pX2 >= character.xPos) && (pX1 <= (character.xPos + character.width)) && (pY2 >= character.yPos) && (pY1 <= (character.yPos + character.height))){
+                 //if (character.yPos >= pY1 && character.yPos <= pY2) {
+                     endGameFlag = true;
+                 }
+              }
+           }
+           else if (pY2 - pY1 == 0) {// && character.yPos == pY1 && character.yPos == pY2) { //Horizontal line with up and down key
+               if (pX1 > pX2) {
+                    pY1 += path[i].width/2;
+                    pY2 -= path[i].width/2;
+                    if ((pX1 > character.xPos) && (pX2 < (character.xPos + character.width)) && (pY1 > character.yPos) && (pY2 < (character.yPos + character.height))){
+                    //if ((pX1 >= character.xPos) && (pX2 <= (character.xPos + character.width)) && (pY1 >= character.yPos) && (pY2 <= (character.yPos + character.height))){
+                    //if (character.xPos >= pX2 && character.xPos <= pX1) {
+                    console.log("GAME " + pX1 + " " + pX2 + " " +  character.dx + " " + character.xPos);
+                        endGameFlag = true;
+                    }
+                 }
+                 else if (pX1 < pX2) {
+                    pY1 -= path[i].width/2;
+                    pY2 += path[i].width/2;
+                    if ((pX2 > character.xPos) && (pX1 < (character.xPos + character.width)) && (pY2 > character.yPos) && (pY1 < (character.yPos + character.height))){
+                    //if ((pX2 >= character.xPos) && (pX1 <= (character.xPos + character.width)) && (pY2 >= character.yPos) && (pY1 <= (character.yPos + character.height))){
+                    //if (character.xPos >= pX1 && character.xPos <= pX2) {
+                        endGameFlag = true;
+                    }
+                 }
+           }            
+       }
+       
+       /*Draw the current path getting built*/
+       pX1 = path[numPaths - 1].x;
+       pY1 = path[numPaths - 1].y;
+
+       pX2 = centPathX(character.xPos);
+       pY2 = centPathY(character.yPos);
+    }
+}
+function hitLine2(character, path, pathCount) {
+   var i = 0, numPaths;
+   var pX1, pY1, pX2, pY2; //points
+    
+    numPaths = pathCount; 
+    
+    if (numPaths > 0) {
+       /*Go through all the paths*/
+       for (i = 0; i < numPaths - 1; i++) {
+           pX1 = path[i].oX;
+           pY1 = path[i].oY;
+           
+           pX2 = path[i+1].oX;
+           pY2 = path[i+1].oY;
+           
+           if (pX2 - pX1 == 0 && character.xPos == pX1 && character.xPos == pX2) { //Vertical line with left and right key
+              if (pY1 > pY2) {
+                 if (character.yPos >= pY2 && character.yPos <= pY1) {
+                     endGameFlag = true;
+                 }
+              }
+              else if (pY1 < pY2) {
+                 if (character.yPos >= pY1 && character.yPos <= pY2) {
+                     endGameFlag = true;
+                 }
+              }
+           }
+           else if (pY2 - pY1 == 0 && character.yPos == pY1 && character.yPos == pY2) { //Horizontal line with up and down key
+               if (pX1 > pX2) {
+                    if (character.xPos >= pX2 && character.xPos <= pX1) {
+                        endGameFlag = true;
+                    }
+                 }
+                 else if (pX1 < pX2) {
+                    if (character.xPos >= pX1 && character.xPos <= pX2) {
+                        endGameFlag = true;
+                    }
+                 }
+              
+           }            
+       }
+       
+       /*Draw the current path getting built*/
+       pX1 = path[numPaths - 1].x;
+       pY1 = path[numPaths - 1].y;
+
+       pX2 = centPathX(character.xPos);
+       pY2 = centPathY(character.yPos);
+    }
+}
 
 /*Determine if the projectile collided with a wall*/
 function checkObstacles() {

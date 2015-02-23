@@ -76,7 +76,7 @@ function setupCanvas() {
     
     /*Draw the character on the screen*/
     setupCharacter(gameCanvas);
-    //addEnemy(gameCanvas);
+    addEnemy(gameCanvas);
     
     /*Drawing out paths in the game*/
     //setupObstacles();
@@ -123,7 +123,9 @@ function setupCharacter(gameCanvas) {
     var cord = [], x, y, gridPos;
     
     /*Add the character to the canvas*/
-    character = new physics(gameCanvas, width, height, 275, 210);
+    character = new physics(gameCanvas, width, height, backgroundImg.canvas.width - width, 210);
+    character.oldPosX = 0;
+    character.oldPosY = 0;
     character.addImg(gameImage.loadedImg["Fire"]);
     
     /*Set line colour*/
@@ -131,14 +133,31 @@ function setupCharacter(gameCanvas) {
     backgroundImg.lineWidth = character.height;
         
     /*Set movement speed*/
-    move = 1;
+    move = height + height/2;
 }
 
+/*Set up the enemy*/
 function addEnemy(gameCanvas) {
-    /*Size of plants*/
+    /*Size of plants
     var height = 40;
-    var width = 20;
+    var width = 20;*/
     
+    var height = 15;
+    var width = 15;
+    
+    /*Setting enemy location*/
+    enemy[0] = new physics(gameCanvas, width, height, 1, 210);
+    enemy[0].addImg(gameImage.loadedImg["enemy"]);
+    
+    /*Enemy Direction*/
+    enemy[0].dx = 1;
+    enemy[0].dy = 0;
+    
+    /*Set line colour*/
+    //backgroundImg.strokeStyle = "black";
+    //backgroundImg.lineWidth = height/2;
+    
+    /*
     enemy[0] = new physics(gameCanvas, width, height, 50, 100);
     enemy[0].addImg(gameImage.loadedImg["plant"]);
     enemy[0].dx = 1;
@@ -162,7 +181,7 @@ function addEnemy(gameCanvas) {
     enemy[4] = new physics(gameCanvas, width, height, 50, -300);
     enemy[4].addImg(gameImage.loadedImg["plant"]);
     enemy[4].dx = 1.5;
-    enemy[4].dy = -1;
+    enemy[4].dy = -1;*/
 }
 
 function addAliens(gameCanvas) {

@@ -82,13 +82,16 @@ function updateGame() {
     
     
     /*Update Emeny position*/
-    //moveEnemies();
+    moveEnemies();
+    enemyHitLine();
         
     /*Check if the image intersects with anything on the canvas*/
     //checkObstacles();
     //characterHit();
     //updatePath();
-    characterHitLine();
+    //characterHitLine();
+    //console.log("ing game timer " + character.xPos);
+    hitLine(character, enemy[0], pathC, pathCCount, 1);
     
     /*Determine if the game over flag as been set*/
     if (endGameFlag == true) { 
@@ -103,6 +106,7 @@ function updateGame() {
         /*Clear all paths*/
         pathCCount = 0;
         pathC = [];
+        lastKey = 0;
         
         /*Inform the user that they lost
         backgroundImg.canvasCtx.fillStyle = "red";
@@ -132,7 +136,7 @@ function moveEnemies() {
         
         enemy[i].redraw(enemy[i].xPos + enemy[i].dx , enemy[i].yPos - enemy[i].dy);
         
-        /*Determine if the alien is off screen*/
+        /*Determine if the alien is off screen
         if ((enemy[i].xPos) < 0) {
             enemy[i].dx = -enemy[i].dx;
         }
@@ -143,7 +147,7 @@ function moveEnemies() {
             endGameFlag = true;
             enemy[i].dy = 0;
             enemy[i].dx = 0;
-        }
+        }*/
     }
 }
 
