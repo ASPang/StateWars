@@ -88,7 +88,7 @@ function updateGame() {
     character.redraw(character.xPos, character.yPos);
         
     /*Update Enemy position*/
-    enemyPredictPath(enemy[0]);
+    //enemyPredictPath(enemy[0]);
     moveEnemies();
     enemyHitLine();
         
@@ -113,7 +113,9 @@ function updateGame() {
         /*Clear all paths*/
         pathCCount = 0;
         pathC = [];
-        lastKey = 0;
+        pathECount = 0;
+        pathE = [];
+        lastKey = 37;
         
         /*Inform the user that they lost
         backgroundImg.canvasCtx.fillStyle = "red";
@@ -140,6 +142,12 @@ function moveEnemies() {
     
     /*Modify every alien image*/
     for (i = 0; i< enemy.length; i++) {            
+        /*Determine if enemy hit another path*/
+        enemyPredictPath(enemy[i]);
+        
+        
+        /*Determine if the enemy will hit a wall */
+        enemyPredictWallColl(enemy[i]);
         
         enemy[i].redraw(enemy[i].xPos + enemy[i].dx , enemy[i].yPos + enemy[i].dy);
         
@@ -155,6 +163,9 @@ function moveEnemies() {
             enemy[i].dy = 0;
             enemy[i].dx = 0;
         }*/
+        if (enemy[i].canvasWallCollision() != "null") {
+          endGameFlag = true;
+        }
     }
 }
 
@@ -286,43 +297,43 @@ function redrawPaths(character, path, curColour, curWidth) {
 }
 
 
-function redrawCPaths222() {
-    var i = 0, numPaths;
-    var pX1, pY1, pX2, pY2; //points
-    var curColour = backgroundImg.strokeStyle;
-    var curWidth = backgroundImg.lineWidth;
+// function redrawCPaths222() {
+    // var i = 0, numPaths;
+    // var pX1, pY1, pX2, pY2; //points
+    // var curColour = backgroundImg.strokeStyle;
+    // var curWidth = backgroundImg.lineWidth;
     
-    numPaths = pathCCount; //pathC.length;
-    if (numPaths > 0) {
-       //console.log(pathCCount);   //TESTING!!!!!!!!!!
-       /*Draw all previous paths*/
-       for (i = 0; i < numPaths - 1; i++) {
-           pX1 = pathC[i].x;
-           pY1 = pathC[i].y;
+    // numPaths = pathCCount; //pathC.length;
+    // if (numPaths > 0) {
+       // //console.log(pathCCount);   //TESTING!!!!!!!!!!
+       // /*Draw all previous paths*/
+       // for (i = 0; i < numPaths - 1; i++) {
+           // pX1 = pathC[i].x;
+           // pY1 = pathC[i].y;
            
-           pX2 = pathC[i+1].x;
-           pY2 = pathC[i+1].y;
+           // pX2 = pathC[i+1].x;
+           // pY2 = pathC[i+1].y;
            
-           backgroundImg.strokeStyle = pathC[i+1].rbg;   //Update the line background
-           backgroundImg.lineWidth = pathC[i+1].width;
-           backgroundImg.drawLine(pX1, pY1, pX2, pY2);
-       }
+           // backgroundImg.strokeStyle = pathC[i+1].rbg;   //Update the line background
+           // backgroundImg.lineWidth = pathC[i+1].width;
+           // backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+       // }
        
-       /*Draw the current path getting built*/
-       pX1 = pathC[numPaths - 1].x;
-       pY1 = pathC[numPaths - 1].y;
+       // /*Draw the current path getting built*/
+       // pX1 = pathC[numPaths - 1].x;
+       // pY1 = pathC[numPaths - 1].y;
 
-       pX2 = centPathX(character.xPos);
-       pY2 = centPathY(character.yPos);
+       // pX2 = centPathX(character.xPos);
+       // pY2 = centPathY(character.yPos);
  
-       backgroundImg.strokeStyle = curColour; //Update the line background
-       backgroundImg.lineWidth = curWidth;
-       backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+       // backgroundImg.strokeStyle = curColour; //Update the line background
+       // backgroundImg.lineWidth = curWidth;
+       // backgroundImg.drawLine(pX1, pY1, pX2, pY2);
        
-       /*Revert the colour back to the original colour*/
-       backgroundImg.strokeStyle = curColour;
-    }
-}
+       // /*Revert the colour back to the original colour*/
+       // backgroundImg.strokeStyle = curColour;
+    // }
+// }
 
 /*Clear the canvas of items*/
 function clearBoard() {

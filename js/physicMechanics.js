@@ -127,13 +127,13 @@ physics.prototype.canvasWallCollision = function() {
     if ( this.xPos < leftWall) {
         return "left";
     }
-    else if (this.xPos > rightWall) {
+    else if (this.xPos + this.width > rightWall) {
         return "right";
     } 
     else if (this.yPos < ceiling) {
         return "top";
     }
-    else if (this.yPos > floor) {
+    else if (this.yPos + this.height > floor) {
         return "bottom";
     }
     

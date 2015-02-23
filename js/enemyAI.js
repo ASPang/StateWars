@@ -43,7 +43,7 @@ function findNewDir(enemy) {
          /*Update the new direction*/
          enemy.dx = 0;
          enemy.dy = 1;
-         console.log("HERE");
+         console.log("HERE-1");
          foundNew = true;
       } 
       
@@ -74,11 +74,9 @@ function findNewDir(enemy) {
          /*Update the new direction*/
          enemy.dx = 1;
          enemy.dy = 0;
-         console.log("HERE31231321");
          foundNew = true;
       } 
       
-   
       if (foundNew == false) {
          /*Reset position to where it was originally*/
          enemy.xPos = oriXPos;
@@ -96,7 +94,7 @@ function findNewDir(enemy) {
          }
       }  
    }
-   
+      
    if (hit == false && foundNew == true) {
       pathE[pathECount] = {
          x: oriXPos + Math.floor(enemy.height/2), 
@@ -108,9 +106,14 @@ function findNewDir(enemy) {
       };
       pathECount++;
    }
+   else {
+      /*Revert to original position*/
+      enemy.xPos = oriXPos;
+      enemy.yPos = oriYPos;
+   }
 }
 
-function enemyPredictPath(enemy) {
+function enemyPredictPath(enemy) {   
    /*Save original information*/
    var oriDX = enemy.dx;
    var oriDY = enemy.dy;
@@ -119,26 +122,27 @@ function enemyPredictPath(enemy) {
    
    /*Get the enemy direction*/
    var dx = enemy.dx + 4;
-   var dy = enemy.dy;
+   var dy = enemy.dy + 4;
    var xPos = enemy.xPos;
    var yPos = enemy.yPos;
     
     var hit;
     
+    //console.log("HERE222 - 1 " + hit);
    /*Determine the direction the enemy is moving*/
-   if (dy == 0 && dx > 0) { //Moving Right
+   if (oriDY == 0 && oriDX > 0) { //Moving Right
       /*Move Right*/
       enemy.xPos += dx;
       hit = hitLine(enemy, character, pathC, pathCCount, 0);
       
       enemy.xPos = oriXPos;  //Revert movement direction
-      //console.log("HERE222 " + hit);
+      //console.log("HERE222 - 2" + hit);
       if (hit == true) {         
          /*Update the new direction*/
          findNewDir(enemy);
       } 
    }
-   else if (dy == 0 && dx < 0) { //Moving left
+   else if (oriDY == 0 && oriDX < 0) { //Moving left
       /*Move Left*/
       enemy.xPos -= dx;
       hit = hitLine(enemy, character, pathC, pathCCount, 0);
@@ -150,7 +154,7 @@ function enemyPredictPath(enemy) {
          findNewDir(enemy);
       } 
    }
-   else if (dy > 0 && dx == 0) { //Moving Down
+   else if (oriDY > 0 && oriDX == 0) { //Moving Down
       /*Move Down*/
       enemy.yPos += dy;
       hit = hitLine(enemy, character, pathC, pathCCount, 0);
@@ -161,7 +165,7 @@ function enemyPredictPath(enemy) {
          findNewDir(enemy);
       } 
    }
-   else if (dy < 0 && dx == 0) { //Moving Up
+   else if (oriDY < 0 && oriDX == 0) { //Moving Up
       /*Move Up*/
       enemy.xPos -= dy;
       hit = hitLine(enemy, character, pathC, pathCCount, 0);
@@ -173,3 +177,98 @@ function enemyPredictPath(enemy) {
       } 
    }
 }
+
+function enemyPredictWallColl(enemy) {
+   var spaceBuff = 4;
+        
+   /*Save original information*/
+   var oriDX = enemy.dx;
+   var oriDY = enemy.dy;
+   var oriXPos = enemy.xPos;
+   var oriYPos = enemy.yPos;
+   
+   /*Get the enemy direction*/
+   var dx = enemy.dx + spaceBuff;
+   var dy = enemy.dy + spaceBuff;
+   var xPos = enemy.xPos;
+   var yPos = enemy.yPos;
+    
+   var hit;
+    
+   /*Determine the direction the enemy is moving*/
+   if (oriDY == 0 && oriDX > 0) { //Moving Right
+      /*Move Right*/
+      enemy.xPos += dx;
+
+      if (enemy.canvasWallCollision() != "null") {         
+         enemy.xPos = oriXPos;  //Revert movement direction
+      
+         /*Update the new direction*/
+         enemyAvoidWall(enemy);
+      } 
+   }
+   else if (oriDY == 0 && oriDX < 0) { //Moving left
+      /*Move Left*/
+      enemy.xPos -= dx;
+
+      if (enemy.canvasWallCollision() != null) {
+         enemy.xPos = oriXPos;  //Revert movement direction      
+         
+         /*Update the new direction*/
+         enemyAvoidWall(enemy);
+      } 
+   }
+   else if (oriDY > 0 && oriDX == 0) { //Moving Down
+      /*Move Down*/
+      enemy.yPos += dy;
+      
+      if (enemy.canvasWallCollision() != null) {
+         enemy.yPos = oriYPos;  //Revert movement direction
+         
+         /*Update the new direction*/
+         enemyAvoidWall(enemy);
+      } 
+   }
+   else if (oriDY < 0 && oriDX == 0) { //Moving Up
+      /*Move Up*/
+      enemy.xPos -= dy;
+      
+      if (enemy.canvasWallCollision() != null) {
+         enemy.yPos = oriYPos;  //Revert movement direction
+         
+         /*Update the new direction*/
+         enemyAvoidWall(enemy);
+      } 
+   }
+   
+   /*Revert movement direction*/
+   enemy.xPos = oriXPos;  
+   enemy.yPos = oriYPos;  
+}
+        
+function enemyAvoidWall(enemy) {
+   var choice = genNumRange(1, 2);
+   
+   if (enemy.canvasWallCollision() == "right" || enemy.canvasWallCollision() == "left") { //Enemy going to collide to the left or right side of the wall
+         /*Randomly choose which direction to go*/
+         if (choice == 1) {   //Move up
+            enemy.dx = 0;
+            enemy.dy = -1;
+         }
+         else {   //Move down
+            enemy.dx = 0;
+            enemy.dy = 1;
+         }
+   }
+   else if (enemy.canvasWallCollision() == "bottom" || enemy.canvasWallCollision() == "top") { //Enemy going to collide to the top or bottom side of the wall
+         if (choice == 1) {   //Move right
+            enemy.dx = 1;
+            enemy.dy = 0;
+         }
+         else {   //Move left
+            enemy.dx = -1;
+            enemy.dy = 0;
+         }
+         console.log("HERE");
+   }
+}        

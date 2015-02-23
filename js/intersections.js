@@ -159,7 +159,7 @@ function enemyHitLine() {
 }
 
 /*Determine if the enemy intersects any of the lines*/ 
-function hitLine(character, enemy, path, pathCount, charPath) {
+function hitLine(chara , enemy, path, pathCount, charPath) {
    var i = 0, numPaths;
    var pX1, pY1, pX2, pY2; //points
     
@@ -190,7 +190,7 @@ function hitLine(character, enemy, path, pathCount, charPath) {
               if (pY1 > pY2) {
                  pX1 += path[i].width/2;
                  pX2 -= path[i].width/2;
-                 if ((pX1 > character.xPos) && (pX2 < (character.xPos + character.width)) && (pY1 > character.yPos) && (pY2 < (character.yPos + character.height))){
+                 if ((pX1 > chara.xPos) && (pX2 < (chara.xPos + chara.width)) && (pY1 > chara.yPos) && (pY2 < (chara.yPos + chara.height))){
                      endGameFlag = true;
                      console.log("gAME");
                  }
@@ -198,7 +198,7 @@ function hitLine(character, enemy, path, pathCount, charPath) {
               else if (pY1 < pY2) {
                  pX1 -= path[i].width/2;
                  pX2 += path[i].width/2;
-                 if ((pX2 > character.xPos) && (pX1 < (character.xPos + character.width)) && (pY2 > character.yPos) && (pY1 < (character.yPos + character.height))){
+                 if ((pX2 > chara.xPos) && (pX1 < (chara.xPos + chara.width)) && (pY2 > chara.yPos) && (pY1 < (chara.yPos + chara.height))){
                      endGameFlag = true;
                  }
               }
@@ -207,15 +207,15 @@ function hitLine(character, enemy, path, pathCount, charPath) {
                if (pX1 > pX2) {
                     pY1 += path[i].width/2;
                     pY2 -= path[i].width/2;
-                    if ((pX1 > character.xPos) && (pX2 < (character.xPos + character.width)) && (pY1 > character.yPos) && (pY2 < (character.yPos + character.height))){
-                    console.log("GAME " + pX1 + " " + pX2 + " " +  character.dx + " " + character.xPos);
+                    if ((pX1 > chara.xPos) && (pX2 < (chara.xPos + chara.width)) && (pY1 > chara.yPos) && (pY2 < (chara.yPos + chara.height))){
+                    console.log("GAME " + pX1 + " " + pX2 + " " +  chara.dx + " " + chara.xPos);
                         endGameFlag = true;
                     }
                  }
                  else if (pX1 < pX2) {
                     pY1 -= path[i].width/2;
                     pY2 += path[i].width/2;
-                    if ((pX2 > character.xPos) && (pX1 < (character.xPos + character.width)) && (pY2 > character.yPos) && (pY1 < (character.yPos + character.height))){
+                    if ((pX2 > chara.xPos) && (pX1 < (chara.xPos + chara.width)) && (pY2 > chara.yPos) && (pY1 < (chara.yPos + chara.height))){
                         endGameFlag = true;
                     }
                  }
@@ -225,7 +225,7 @@ function hitLine(character, enemy, path, pathCount, charPath) {
     
     /*Determine if the end game flag was set*/
     if (endGameFlag == true) {
-      console.log(character.xPos + " " +  character.yPos + " " + pX1+ " " + pY1+ " " + pX2+ " " + pY2 );
+      console.log(chara.xPos + " " +  chara.yPos + " " + pX1+ " " + pY1+ " " + pX2+ " " + pY2 );
       return true;
     }
     
