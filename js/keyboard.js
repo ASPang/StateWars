@@ -258,6 +258,9 @@ function characterImgColour() {
    else if (character.image == gameImage.loadedImg["Water"]) {
       return "blue";
    }
+   else if (character.image == gameImage.loadedImg["enemy"]) {
+      return "black";
+   }
 }
 
 /*Return the appropriate line width based on the character colour*/

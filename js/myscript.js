@@ -122,18 +122,39 @@ function setupCharacter(gameCanvas) {
     var width = 15;
     var cord = [], x, y, gridPos;
     
+    var colour = "red";
+    var lineWidth = height;
+    
     /*Add the character to the canvas*/
     character = new physics(gameCanvas, width, height, backgroundImg.canvas.width - width, 210);
-    character.oldPosX = 0;
-    character.oldPosY = 0;
+    character.oldPosX = backgroundImg.canvas.width - width;
+    character.oldPosY = 210;
     character.addImg(gameImage.loadedImg["Fire"]);
     
-    /*Set line colour*/
+    /*Character Direction*/
+    character.dx = -1;
+    character.dy = 0;
+    
+    /*Set line colour
     backgroundImg.strokeStyle = "red";
-    backgroundImg.lineWidth = character.height;
+    backgroundImg.lineWidth = character.height;*/
         
     /*Set movement speed*/
     move = height + height/2;
+    lastKey = 37; //Setting the last key to be left - same direction as the current state
+    
+    /*Save enemy initial location*/
+    pathC[pathCCount] = {
+            x: character.oldPosX + Math.floor(character.height/2), 
+            y: character.oldPosY + Math.floor(character.height/2),
+            oX: character.oldPosX, 
+            oY: character.oldPosY,
+            rbg: colour,
+            width: lineWidth
+    };
+    
+    pathCCount++
+    
 }
 
 /*Set up the enemy*/
@@ -144,6 +165,8 @@ function addEnemy(gameCanvas) {
     
     var height = 15;
     var width = 15;
+    var colour = "black";
+    var lineWidth = Math.floor(15 / 2);
     
     /*Setting enemy location*/
     enemy[0] = new physics(gameCanvas, width, height, 1, 210);
@@ -152,6 +175,18 @@ function addEnemy(gameCanvas) {
     /*Enemy Direction*/
     enemy[0].dx = 1;
     enemy[0].dy = 0;
+    
+    /*Save enemy initial location*/
+    pathE[pathECount] = {
+            x: enemy[0].oldPosX + Math.floor(enemy[0].height/2), 
+            y: enemy[0].oldPosY + Math.floor(enemy[0].height/2),
+            oX: enemy[0].oldPosX, 
+            oY: enemy[0].oldPosY,
+            rbg: colour,
+            width: lineWidth
+    };
+    
+    pathECount++
     
     /*Set line colour*/
     //backgroundImg.strokeStyle = "black";

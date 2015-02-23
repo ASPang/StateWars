@@ -36,17 +36,16 @@ function menuScreen() {
 
 /*Start the game when the start button is clicked*/
 function startTimer() { 
+   var oneSec = 10;
+   
    clearInterval(gameTimer);   
    startClock = new Date().getTime();
    
-   var oneSec = 10;
-       endGameFlag = false;
+   endGameFlag = false;
 
 //    /*Initiate game*/
     //initGame();
     setupCanvas();
-    
-    
     
    gameTimer = setInterval(function(){updateGame();}, oneSec);  
 }
@@ -55,33 +54,41 @@ function startTimer() {
 /*Update the game every few milseconds*/
 function updateGame() {
     var i;  //Loop counter
+    var curColour, curWidth;
     
     /*Clear the canvas*/
     backgroundImg.clearCanvas();
     
     /*Draw the background*/
     backgroundImg.redraw(backgroundImg.xPos, backgroundImg.yPos);
-    //redrawPaths();
-    redrawCPaths();
+    
+    /*Redraw Character path*/
+    curColour = characterImgColour();
+    curWidth = characterImgLineWidth(curColour);
+    redrawPaths(character, pathC, curColour, curWidth);  //Redraw character path
+    
+    /*Redraw Enemy path*/
+    curColour = "black";
+    curWidth = characterImgLineWidth(curColour);
+    redrawPaths(enemy[0], pathE, curColour, curWidth);  //Redraw enemy path
     
     /*Draw gameplay information*/
     backgroundImg.canvasCtx.fillStyle = "Black";
     backgroundImg.canvasCtx.font = "bold 16px Arial";
-    backgroundImg.canvasCtx.fillText("Score: " + points, backgroundImg.canvas.width / 2 - 30, 16);
+    backgroundImg.canvasCtx.fillText("Elapse Time: " + points, backgroundImg.canvas.width / 2 - 30, 16);
     
     /*Draw the character*/
     character.xPos += character.dx;
     character.yPos += character.dy;
-    
+
     if (character.canvasWallCollision() != "null") {   //Returns the value which the character collides with the wall
       character.stopWallCollision();
       endGameFlag = true;
     }
     character.redraw(character.xPos, character.yPos);
-    
-    
-    
-    /*Update Emeny position*/
+        
+    /*Update Enemy position*/
+    enemyPredictPath(enemy[0]);
     moveEnemies();
     enemyHitLine();
         
@@ -97,11 +104,11 @@ function updateGame() {
     if (endGameFlag == true) { 
         clearInterval(gameTimer);
                 
-        /*Disable all enemies*
+        /*Disable all enemies*/
         for (i = 0; i< enemy.length; i++) {                        
             enemy[i].dx = 0;
             enemy[i].dy = 0;
-        }*/
+        }
         
         /*Clear all paths*/
         pathCCount = 0;
@@ -134,7 +141,7 @@ function moveEnemies() {
     /*Modify every alien image*/
     for (i = 0; i< enemy.length; i++) {            
         
-        enemy[i].redraw(enemy[i].xPos + enemy[i].dx , enemy[i].yPos - enemy[i].dy);
+        enemy[i].redraw(enemy[i].xPos + enemy[i].dx , enemy[i].yPos + enemy[i].dy);
         
         /*Determine if the alien is off screen
         if ((enemy[i].xPos) < 0) {
@@ -240,7 +247,46 @@ function redrawPaths() {
 }
 
 /*Draw Character path*/
-function redrawCPaths() {
+function redrawPaths(character, path, curColour, curWidth) {
+    var i = 0, numPaths;
+    var pX1, pY1, pX2, pY2; //points
+    /*var curColour = path.rbg;
+    var curWidth = path.lineWidth;*/
+    
+    numPaths = path.length; //Get the number of paths
+    
+    if (numPaths > 0) {
+       /*Draw all previous paths*/
+       for (i = 0; i < numPaths - 1; i++) {
+           pX1 = path[i].x;
+           pY1 = path[i].y;
+           
+           pX2 = path[i+1].x;
+           pY2 = path[i+1].y;
+           
+           backgroundImg.strokeStyle = path[i+1].rbg;   //Update the line background
+           backgroundImg.lineWidth = path[i+1].width;
+           backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+       }
+       
+       /*Draw the current path getting built*/
+       pX1 = path[numPaths - 1].x;
+       pY1 = path[numPaths - 1].y;
+
+       pX2 = centPathX(character.xPos);
+       pY2 = centPathY(character.yPos);
+       
+       backgroundImg.strokeStyle = curColour; //Update the line background
+       backgroundImg.lineWidth = curWidth;
+       backgroundImg.drawLine(pX1, pY1, pX2, pY2);
+       
+       /*Revert the colour back to the original colour*/
+       backgroundImg.strokeStyle = "black";
+    }
+}
+
+
+function redrawCPaths222() {
     var i = 0, numPaths;
     var pX1, pY1, pX2, pY2; //points
     var curColour = backgroundImg.strokeStyle;
