@@ -57,8 +57,8 @@ function preloadGameImages() {
 /*Set up the canvas*/
 function setupCanvas() {
     var gameCanvas = "gameCanvas";
-    var height = 50;
-    var width = 50;
+    var height = 500;
+    var width = 600;
     backgroundImg = new imageLib(gameCanvas, width, height, 0, 0);
     
     /*Add background image to canvas*/
@@ -91,11 +91,11 @@ function setupInterfaces() {
    /*Set up the intro/menu interface*/
    backgroundImg.introBackground(gameImage.loadedImg["introMenuBgd"], 0, 0, 600, 400); //Set up the background
    backgroundImg.setTitle("Element Race", 100, 200, "bold 60px Arial" );//Set up the title
-   backgroundImg.setStartButton("Start", 50, 350, "bold 24px Arial" );  //Set up the start button
+   backgroundImg.setStartButton("Start", 250, 350, "bold 24px Arial" );  //Set up the start button
    
    /*Set up the Game Over Interface screen*/
    backgroundImg.setGameOverMsg("GAME OVER", 125, 160, "bold 60px Arial", "red");
-   backgroundImg.setNewGameButton("New Game", 125, 360,"bold 30px Arial", "black", "blue");
+   backgroundImg.setNewGameButton("New Game", 230, 360,"bold 30px Arial", "black", "blue");
 }
 
 /*Set up the obstacles for the game*/

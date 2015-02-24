@@ -21,17 +21,6 @@ var milSec = 1000;
 
 function menuScreen() {
    backgroundImg.introScreen();
-
-   /*var oneSec = 30;
-   
-   
-   clearInterval(gameTimer);   
-   startClock = new Date().getTime();*/
-   
-   /*Refresh the screen*/
-   //setInterval(function(){backgroundImg.introScreen();}, oneSec);    
-   
-   //startTimer();
 }
 
 /*Start the game when the start button is clicked*/
@@ -72,10 +61,10 @@ function updateGame() {
     curWidth = characterImgLineWidth(curColour);
     redrawPaths(enemy[0], pathE, curColour, curWidth);  //Redraw enemy path
     
-    /*Draw gameplay information*/
+    /*Draw gameplay information
     backgroundImg.canvasCtx.fillStyle = "Black";
     backgroundImg.canvasCtx.font = "bold 16px Arial";
-    backgroundImg.canvasCtx.fillText("Elapse Time: " + points, backgroundImg.canvas.width / 2 - 30, 16);
+    backgroundImg.canvasCtx.fillText("Elapse Time: " + points, backgroundImg.canvas.width / 2 - 30, 16);*/
     
     /*Draw the character*/
     character.xPos += character.dx;
@@ -99,6 +88,7 @@ function updateGame() {
     //characterHitLine();
     //console.log("ing game timer " + character.xPos);
     hitLine(character, enemy[0], pathC, pathCCount, 1);
+    hitLine(character, enemy[0], pathE, pathECount, 0);
     
     /*Determine if the game over flag as been set*/
     if (endGameFlag == true) { 
@@ -117,13 +107,6 @@ function updateGame() {
         pathE = [];
         lastKey = 37;
         
-        /*Inform the user that they lost
-        backgroundImg.canvasCtx.fillStyle = "red";
-        backgroundImg.canvasCtx.font = "bold 60px Arial";
-        backgroundImg.canvasCtx.fillText("GAME OVER", 125, 160);
-        backgroundImg.canvasCtx.font = "bold 30px Arial";
-        backgroundImg.canvasCtx.fillText("Final Score: " + points, 220, 220);*/
-        
         /*Stop the character from moving*/
         character.dx = 0;
         character.dy = 0;
@@ -132,7 +115,6 @@ function updateGame() {
         screenDisplayed = "gameOver";
         backgroundImg.gameOverScreen();
         
-        //clearInterval(gameTimer);   //TESTING!!!!!!!!!!!!!! - SHOULDN'T BE HERE
     }
 }
 
@@ -143,7 +125,7 @@ function moveEnemies() {
     /*Modify every alien image*/
     for (i = 0; i< enemy.length; i++) {            
         /*Determine if enemy hit another path*/
-        //enemyPredictPath(enemy[i]);
+        enemyPredictPath(enemy[i]);
         
         /*Determine if the enemy will hit a wall */
         enemyPredictWallColl(enemy[i]);

@@ -27,27 +27,23 @@
             <!-- Canvas -->
             <canvas id="gameCanvas" width="600" height="400">Your browser does not support the HTML5 canvas tag.</canvas>
             
-            
-            <!-- Start Button --
-            <div id="gameStartDiv">
-               <button id="startButton" onclick="startTimer();" onfocus="this.blur()">Start Game</button>
-            </div-->
-            
          </div>
          
       </div>
       
       <hr>
       
-      <!-- Game Instruction Section --
+      <!-- Game Instruction Section -->
       <div id="infoDiv">
-         <h4>State Wars Instructions</h4-->
-
-         <!-- How To --
-         <h5>How To Start:</h5>
-         <p>To start the game click the "Start Game" button below the game window.</p-->
+         <h4>Known issue: Opponent tends to commit suicide.</h4>
          
-         <!-- Controls --
+         <h4>Instructions</h4>
+
+         <!-- How To -->
+         <h5>How To Start:</h5>
+         <p>To start the game click "Start" in the game window.</p--
+         
+         <!-- Controls -->
          <h5>Controls</h5>
           Use the keyboard arrow keys to move around the game window
          <ul>
@@ -58,57 +54,84 @@
                Left Arrow Key - Move your character Left;
             </li>
             <li>
-               Space Bar - Use the space bar to shoot a projectile. 
-               <b>HINT: </b>The projectile can bounce off of the ground 
-               and tree on the left.
+               Up Arrow Key - Move your character Up;
+            </li>
+            <li>
+               Down Arrow Key - Move your character Down;
+            </li>
+            <li>
+               F Key - Changes your avatar to a fireball that has a wider path. Moves as fast as your opponent. 
+               <img src="img/Fire.png" width="50" height="auto"/>
+            </li>
+            <li>
+               S Key - Changes your avatar to a water dropplet to create a thinner line. Moves as fast as your opponent. 
+               <img src="img/Water.png" width="50" height="auto"/>
+            </li>
+            <li>
+               D Key - Changes your avatar to a lightning bolt. Moves as twice as fast as your opponent and 50% chance of passing through lines.
+               <img src="img/Lightning.png" width="50" height="auto"/>
             </li>
             
-         </ul-->
+         </ul>
         
-         <!-- Game play --
+         <!-- Game play -->
          <h5>Game Play</h5>
          <p>
-            Don't let the seeds hit the ground and yourself. Try to destroy them all!
-         </p-->
+            Try to survive longer than your opponent. Don't hit any lines or the game window. 
+         </p>
          
-         <!-- Characters and Items --
+         <!-- Characters and Items -->
          <h5>Characters</h5>
          <div id="characterDiv">
             <table style="width:100%">
               <tr>
                 <td>
-                  <img src="img/ship.png" height="auto" width="auto" />
+                  <img src="img/Fire.png" width="50" height="auto"/>
+                  <img src="img/Water.png" width="50" height="auto"/>
+                  <img src="img/Lightning.png" width="50" height="auto"/>
                 </td>
                 <td>
-                  <img src="img/plant.png" />
+                  <img src="img/enemy.png" width="50" height="auto"/>
                 </td>
                 <td>
-                  <img src="img/projectile.png" />
+                  
                 </td>
               </tr>
               <tr>
                 <td>
                   <b>Player</b>
                   <br>
-                  A spaceship who is attempting to destroy all plant life by 
-                  preventing any new seedlings.
+                  Can be one of 3 elements
                 </td>
                 <td>
-                  <b>Seeds</b>
+                  <b>Opponent</b>
                   <br>
-                  Seek and destroy. Don't let them hit the ground or you.
+                  A fusion of all three elements.
                   
                 </td>
                 <td>
-                  <b>Projectile</b>
-                  <br>
-                  They can bounce off of walls and the ground. Unfortunately,
-                  you can only shoot sideways.
+                  
                 </td>
               </tr>
             </table> 
          </div>
-      </div-->
+         
+         <h5>Additions to game engine</h5>
+         <ul>
+            <li>
+               Interfaces - Menu screen, game screen, and game over screen,
+            </li>
+            <li>
+               Links/buttons on canvas.
+            </li>
+            <li>
+               Character change of state.
+            </li>
+            <li>
+               Updated collision detection for paths in relation to line width.
+            </li>
+         </ul>
+      </div>
 
       <!-- JavaScript -->
       <script type="text/javascript" src="js/variableList.js"></script>
