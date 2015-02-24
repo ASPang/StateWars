@@ -113,6 +113,7 @@ function findNewDir(enemy) {
    }
 }
 
+/*Determine if the enemy is going to hit another path*/
 function enemyPredictPath(enemy) {   
    /*Save original information*/
    var oriDX = enemy.dx;
@@ -178,8 +179,9 @@ function enemyPredictPath(enemy) {
    }
 }
 
+/*Determine the direction which the enemy should move to avoid the wall*/        
 function enemyPredictWallColl(enemy) {
-   var spaceBuff = 4;
+   //var spaceBuff = 4;
         
    /*Save original information*/
    var oriDX = enemy.dx;
@@ -188,87 +190,154 @@ function enemyPredictWallColl(enemy) {
    var oriYPos = enemy.yPos;
    
    /*Get the enemy direction*/
-   var dx = enemy.dx + spaceBuff;
-   var dy = enemy.dy + spaceBuff;
+   var dx = enemy.dx + 4;
+   var dy = enemy.dy + 4;
    var xPos = enemy.xPos;
    var yPos = enemy.yPos;
-    
+
+   var colour = "black";
+   var lineWidth = Math.floor(enemy.height/2);
+   
    var hit;
-    
+
    /*Determine the direction the enemy is moving*/
    if (oriDY == 0 && oriDX > 0) { //Moving Right
       /*Move Right*/
       enemy.xPos += dx;
 
       if (enemy.canvasWallCollision() != "null") {         
-         enemy.xPos = oriXPos;  //Revert movement direction
+         //enemy.xPos = oriXPos;  //Revert movement direction
       
          /*Update the new direction*/
          enemyAvoidWall(enemy);
+         
+         enemy.xPos = oriXPos;  //Revert movement direction
+         hit = true;
       } 
    }
    else if (oriDY == 0 && oriDX < 0) { //Moving left
       /*Move Left*/
       enemy.xPos -= dx;
 
-      if (enemy.canvasWallCollision() != null) {
-         enemy.xPos = oriXPos;  //Revert movement direction      
+      if (enemy.canvasWallCollision() != "null") {
+         //enemy.xPos = oriXPos;  //Revert movement direction      
          
          /*Update the new direction*/
          enemyAvoidWall(enemy);
+         
+         enemy.xPos = oriXPos;  //Revert movement direction     
+         hit = true;         
       } 
    }
    else if (oriDY > 0 && oriDX == 0) { //Moving Down
       /*Move Down*/
       enemy.yPos += dy;
       
-      if (enemy.canvasWallCollision() != null) {
-         enemy.yPos = oriYPos;  //Revert movement direction
+      if (enemy.canvasWallCollision() != "null") {
+         //enemy.yPos = oriYPos;  //Revert movement direction
          
          /*Update the new direction*/
          enemyAvoidWall(enemy);
+         
+         enemy.yPos = oriYPos;  //Revert movement direction
+         hit = true;
       } 
    }
    else if (oriDY < 0 && oriDX == 0) { //Moving Up
       /*Move Up*/
       enemy.xPos -= dy;
       
-      if (enemy.canvasWallCollision() != null) {
-         enemy.yPos = oriYPos;  //Revert movement direction
-         
+      if (enemy.canvasWallCollision() != "null") {         
          /*Update the new direction*/
          enemyAvoidWall(enemy);
+         
+         enemy.yPos = oriYPos;  //Revert movement direction
+         hit = true;
       } 
    }
    
-   /*Revert movement direction*/
-   enemy.xPos = oriXPos;  
-   enemy.yPos = oriYPos;  
+   /*Save turning point*/
+   if (hit == true) { //(enemy.canvasWallCollision() != "null") {
+      console.log("I shouldn't be here");
+      pathE[pathECount] = {
+            x: oriXPos + Math.floor(enemy.height/2), 
+            y: oriYPos + Math.floor(enemy.height/2),
+            oX: oriXPos, 
+            oY: oriYPos,
+            rbg: colour,
+            width: lineWidth
+         };
+         pathECount++;
+   }
+   else {
+      /*Revert movement direction*/
+      enemy.xPos = oriXPos;  
+      enemy.yPos = oriYPos;  
+   }
 }
-        
+
+function enemyAvoidWall1(enemy) {
+}
+/*Determine the direction which the enemy should move to avoid the wall*/        
 function enemyAvoidWall(enemy) {
-   var choice = genNumRange(1, 2);
+   var oriXPos = enemy.xPos;
+   var oriYPos = enemy.yPos;
    
+   var hit = false;
+   var choice = genNumRange(1, 2);
+   console.log("avoid the walls " + enemy.canvasWallCollision() + " " + choice);
    if (enemy.canvasWallCollision() == "right" || enemy.canvasWallCollision() == "left") { //Enemy going to collide to the left or right side of the wall
          /*Randomly choose which direction to go*/
          if (choice == 1) {   //Move up
+            enemy.yPos -= enemy.height + enemy.height/2;
             enemy.dx = 0;
             enemy.dy = -1;
+            
+            if (enemy.canvasWallCollision() != "null" ) {//Move down
+               enemy.yPos = oriYPos;
+               enemy.yPos += enemy.height + enemy.height/2;
+               enemy.dx = 0;
+               enemy.dy = 1;
+            }            
          }
          else {   //Move down
+            enemy.yPos += enemy.height + enemy.height/2;
             enemy.dx = 0;
             enemy.dy = 1;
+            
+            if (enemy.canvasWallCollision() != "null" ) {//Move up
+               enemy.yPos = oriYPos;
+               enemy.yPos -= enemy.height + enemy.height/2;
+               enemy.dx = 0;
+               enemy.dy = -1;
+            }  
          }
    }
    else if (enemy.canvasWallCollision() == "bottom" || enemy.canvasWallCollision() == "top") { //Enemy going to collide to the top or bottom side of the wall
          if (choice == 1) {   //Move right
+            enemy.xPos += enemy.width + enemy.width/2;
             enemy.dx = 1;
             enemy.dy = 0;
+            
+            if (enemy.canvasWallCollision() != "null" ) { //Move left
+               enemy.xPos = oriXPos;
+               enemy.xPos -= enemy.width + enemy.width/2;
+               enemy.dx = -1;
+               enemy.dy = 0;
+            }
          }
          else {   //Move left
+            enemy.xPos -= enemy.width + enemy.width/2;
             enemy.dx = -1;
             enemy.dy = 0;
+            
+            if (enemy.canvasWallCollision() != "null" ) { //Move Right
+               enemy.xPos = oriXPos;
+               enemy.xPos += enemy.width + enemy.width/2;
+               enemy.dx = 1;
+               enemy.dy = 0;
+            }
          }
-         console.log("HERE");
+         console.log("HERE at the bottom");
    }
 }        
