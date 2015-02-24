@@ -143,11 +143,12 @@ function moveEnemies() {
     /*Modify every alien image*/
     for (i = 0; i< enemy.length; i++) {            
         /*Determine if enemy hit another path*/
-        enemyPredictPath(enemy[i]);
-        
+        //enemyPredictPath(enemy[i]);
         
         /*Determine if the enemy will hit a wall */
         enemyPredictWallColl(enemy[i]);
+        
+        console.log("enemy current movement.dir = " + enemy[i].dx + " " + enemy[i].dy);
         
         enemy[i].redraw(enemy[i].xPos + enemy[i].dx , enemy[i].yPos + enemy[i].dy);
         
